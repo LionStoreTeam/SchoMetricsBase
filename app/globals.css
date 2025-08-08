@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    /* --primary: 204.1 61.5% 46.9%; */
+    --primary: 167 100% 35%;
+    --primary-foreground: 355.7 100% 97.3%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 167 100% 35%;
+    --radius: 0.5rem;
+    /* user-select: none; */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* WebKit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #e6f7f3; /* un verde muy claro, casi blanco */
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #00b38c; /* color base ambiental */
+  border-radius: 8px;
+  border: 2px solid #e6f7f3; /* borde para que se vea integrado */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #00997a; /* tono más oscuro al hacer hover */
+}
+
+/* Firefox */
+.scrollable {
+  scrollbar-width: thin;
+  scrollbar-color: #00b38c #e6f7f3;
+}
+
+.test {
+  background-image: url("../public/test/1.svg");
+  background-size: cover; /* Hace que la imagen de fondo cubra toda la pantalla */
+  background-position: center; /* Centra la imagen de fondo */
+  background-repeat: no-repeat; /* Evita que la imagen de fondo se repita */
+  background-attachment: fixed; /* Hace que la imagen de fondo se mantenga fija al hacer scroll */
+}
