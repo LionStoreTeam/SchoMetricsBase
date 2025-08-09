@@ -1,5 +1,4 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
 import crypto from "crypto";
 import { Resend } from "resend";
 import prisma from "@/lib/prisma";
@@ -51,19 +50,17 @@ export async function POST(request: NextRequest) {
     });
 
     // Enviar email
-    const resetUrl = `${
-      process.env.NEXTAUTH_URL || "http://localhost:3000"
-    }/reset-password?token=${token}`;
+    const resetUrl = `${process.env.NEXTAUTH_URL}/login/reset-password?token=${token}`;
 
     await resend.emails.send({
-      from: "EcoMetrics School <noreply@ecometrics.com>",
+      from: "SchoMetrics <noreply@schometrics.website>", // put here the same domain existing in Resend
       to: email,
-      subject: "Restablecer contraseña - EcoMetrics School",
+      subject: "Restablecer contraseña - SchoMetrics",
       html: `
         <div style="max-width: 600px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif;">
           <div style="text-align: center; margin-bottom: 30px;">
-            <h1 style="color: #2563eb; margin-bottom: 10px;">EcoMetrics School</h1>
-            <p style="color: #6b7280;">Sistema de Gestión Educativa</p>
+            <h1 style="color: #2563eb; margin-bottom: 10px;">SchoMetrics</h1>
+            <p style="color: #6b7280;">Sistema de Gestión Ambiental Educativa</p>
           </div>
 
           <div style="background-color: #f9fafb; padding: 30px; border-radius: 8px; margin-bottom: 20px;">
@@ -103,7 +100,7 @@ export async function POST(request: NextRequest) {
 
           <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e7eb;">
             <p style="color: #9ca3af; font-size: 12px;">
-              © 2024 EcoMetrics School. Todos los derechos reservados.
+              © 2024 SchoMetrics. Todos los derechos reservados.
             </p>
           </div>
         </div>

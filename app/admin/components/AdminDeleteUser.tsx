@@ -63,14 +63,14 @@ const AdminDeleteUser: React.FC<AdminDeleteUserProps> = ({ userId }) => {
     };
 
     return (
-        <div className="flex gap-2">
+        <div className="w-full flex justify-center items-center gap-2">
             <AlertDialog>
                 <AlertDialogTrigger asChild>
                     <Button variant="destructive" size="sm" disabled={isDeleting} title={"Eliminar Usuario: " + user?.name + " - " + user?.matricula}>
                         <Trash2 className="h-4 w-4 mr-1.5" /> Eliminar Usuario
                     </Button>
                 </AlertDialogTrigger>
-                <AlertDialogContent>
+                <AlertDialogContent className="w-full">
                     <AlertDialogHeader>
                         <AlertDialogTitle>¿Estás absolutamente seguro?</AlertDialogTitle>
                         <AlertDialogDescription>

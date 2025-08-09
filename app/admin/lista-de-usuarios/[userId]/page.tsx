@@ -665,7 +665,7 @@ export default function ProfilePage() {
                                                         <h3 className="font-medium text-sky-500">
                                                             Correo electrónico
                                                         </h3>
-                                                        <p className="text-muted-foreground">{user.profile.email}</p>
+                                                        <p className="text-muted-foreground overflow-auto">{user.profile.email}</p>
                                                     </div>
                                                 )}
                                                 {user.profile?.bio && (

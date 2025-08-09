@@ -33,7 +33,7 @@ function LoginFormSkeleton() {
 
 export default function LoginPage() {
     return (
-        <AuroraBackground>
+        <div className="bg-gradient-to-br from-teal-100 via-white to-green-100">
             <motion.div
                 initial={{ opacity: 0.0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -60,6 +60,6 @@ export default function LoginPage() {
                     </div>
                 </div>
             </motion.div>
-        </AuroraBackground>
+        </div>
     );
 }

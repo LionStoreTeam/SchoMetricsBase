@@ -129,8 +129,6 @@ export default function Inicio() {
         "Herramientas de medición y análisis",
     ]
 
-    const words = ["¿Listo para hacer la diferencia ambiental?", "Registra Actividades Ambientales", "Visualiza tu Impacto Ambiental", "Obtén Increíbles Recompensas", "Aprende Sobre Sostenibilidad"];
-
     return (
         <DashboardLayout>
             <div className="mt-24 md:mt-6 w-full bg-white rounded-xl shadow-md">
@@ -142,12 +140,13 @@ export default function Inicio() {
                         </p>
                     </div>
                 </div>
-                <div className="pt-5 flex justify-start items-center gap-4 bg-white rounded-md w-full px-4 py-2">
-                    <h1 className="flex flex-col gap-2 pl-5 text-lg font-bold leading-tight text-gray-600 mb-4">
+                <div className=" pt-5 flex justify-start items-center gap-4 bg-white rounded-md w-full px-4 py-2">
+                    <div className="flex flex-col gap-2 pl-5 text-lg font-bold text-gray-600 mb-4">
                         {greeting}
                         <span className="text-teal-500 font-semibold">{profile?.name}</span>
-                        <span className="font-normal text-gray-600">Nos alegra verte aquí. <FlipWords words={words} /></span>
-                    </h1>
+                        <span className="font-normal text-gray-600">Nos alegra verte aquí.
+                        </span>
+                    </div>
                 </div>
                 <div className="my-5">
                     <SchometricsAnnoucementsCarousel />

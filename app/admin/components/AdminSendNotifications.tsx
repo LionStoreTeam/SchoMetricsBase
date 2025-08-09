@@ -74,7 +74,7 @@ const AdminSendNotifications = () => {
         }
     };
     return (
-        <div className="">
+        <div className="w-full flex flex-col justify-center items-center">
             <Button
                 className="text-muted-foreground text-white bg-green-500 hover:bg-green-600"
                 title={`Enviar Notificación al Usuario: ${user?.name}`}
@@ -84,7 +84,7 @@ const AdminSendNotifications = () => {
             </Button>
             {/* Modal de Notificación Manual */}
             <Dialog open={isNotifyModalOpen} onOpenChange={setIsNotifyModalOpen}>
-                <DialogContent className="sm:max-w-lg">
+                <DialogContent className="w-full">
                     <DialogHeader>
                         <DialogTitle className="flex items-center gap-2 justify-center text-center">Enviar Notificación a <p className="text-green-500 font-bold">{user?.name}</p></DialogTitle>
                         <DialogDescription>Redacta un mensaje para el usuario sobre alguna modificación en su perfil, anomalía o cualquier otro asunto relacionado únicamente con SchoMetrics.</DialogDescription>

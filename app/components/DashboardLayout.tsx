@@ -171,7 +171,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                                     Menú de navegación principal de la aplicación EcoTrack MX.
                                 </SheetDescription>
                                 {profile && (
-                                    <div className="flex flex-col items-center p-4 border-b ">
+                                    <div className="flex flex-col items-center my-10">
                                         <Avatar className="h-20 w-20 mb-3">
                                             <AvatarImage src={profile.profile?.publicAvatarDisplayUrl || ""} alt={profile.name || "Avatar"} />
                                             <AvatarFallback className="text-xl bg-teal-100 text-teal-600">
@@ -180,14 +180,36 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                                         </Avatar>
                                         <p className="font-medium text-gray-800 uppercase">{profile.name}</p>
                                         <p className="text-sm text-gray-500">Matricula: <span className="text-[#00b38c] font-semibold">{profile.matricula}</span></p>
-                                        <div className="mt-2 flex items-center justify-center space-x-1">
-                                            <span className="bg-teal-600 text-blue-50 text-md px-4 py-1 rounded-full">Actividades: {stats.activityCount}</span>
-                                        </div>
                                     </div>
                                 )}
+                                <div className="flex flex-col justify-center items-center">
+                                    <div className="flex justify-center items-center gap-2 mb-4 text-center">
+                                        <Image
+                                            src="/eco_points_logo.png"
+                                            alt="EcoPoints Badge"
+                                            width={65}
+                                            height={50}
+                                            className={`mx-auto transition-transform duration-1000 ${isHovered ? "animate-heartbeat" : "animate-heartbeat"}`}
+                                        />
+                                        <h3 className={`${luckiestGuy.className} text-lg text-[#17d627]`}>
+                                            EcoPoints:
+                                        </h3>
+                                        <p className={`${luckiestGuy.className} text-xl font-bold text-[#17d627]`}>{stats.totalPoints.toLocaleString()}</p>
+                                    </div>
+                                    <div className="bg-gradient-to-r from-green-100 to-emerald-50 rounded-full p-3 mb-4">
+                                        <div className="flex items-center justify-center gap-2">
+                                            <Leaf
+                                                className={` w-5 h-5 text-green-600 transition-all duration-1000 ${isHovered ? "" : ""}`}
+                                                style={{ top: "15%", left: "15%" }}
+                                            />
+                                            <span className="text-green-600 font-bold text-sm" title="Total de actividades enviadas">Actividades: {stats.activityCount}</span>
+
+                                        </div>
+                                    </div>
+                                </div>
                                 {
                                     currentSession.session?.userType === "ADMIN" && (
-                                        <div className="my-3 p-2 transition-all ease-linear duration-300 rounded-md border-none">
+                                        <div className="my-3 mr-3 p-2 transition-all ease-linear duration-300 rounded-md border-none">
                                             <Link href="/admin">
                                                 <Button size="icon" className="w-full px-3 justify-start text-white bg-rose-500 hover:bg-red-600 transition-all ease-in-out duration-300 hover:-translate-x-1">
                                                     <UserCog className="h-5 w-5" />
@@ -289,7 +311,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                     </div>
 
                     {profile && (
-                        <div className="flex flex-col items-center py-5 border-b">
+                        <div className="flex flex-col items-center py-5">
                             <Avatar className="h-20 w-20 mb-3">
                                 <AvatarImage src={profile.profile?.publicAvatarDisplayUrl || ""} alt={profile.name || "Avatar"} />
                                 <AvatarFallback className="text-xl bg-teal-100 text-teal-500 border-2 border-emerald-500">
@@ -300,83 +322,10 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                                 <p className="font-semibold text-gray-800 uppercase">{profile.name}</p>
                                 <p className="font-light text-gray-400">Matricula: <span className="text-[#00b38c] font-semibold">{profile.matricula}</span></p>
                             </div>
-                            <div className="mt-4">
-                                <div
-                                    className="w-full relative overflow-hidden bg-white"
-                                    onMouseEnter={() => setIsHovered(true)}
-                                    onMouseLeave={() => setIsHovered(false)}
-                                >
 
-
-                                    {/* Inner card */}
-                                    <div className="relative bg-white p-6 m-0.5 w-full">
-                                        {/* Premium badge */}
-                                        <div className="absolute top-4 right-4">
-                                            <div className="bg-gradient-to-r from-sky-400 to-sky-500 rounded-full p-2">
-                                                <Crown className={`w-5 h-5 text-white`} />
-                                            </div>
-                                        </div>
-
-
-                                        <div className="text-center">
-                                            <div className="mb-4">
-                                                <Image
-                                                    src="/eco_points_logo.png"
-                                                    alt="EcoPoints Badge"
-                                                    width={110}
-                                                    height={90}
-                                                    className={`mx-auto transition-transform duration-1000 ${isHovered ? "animate-heartbeat" : "animate-heartbeat"}`}
-                                                />
-                                            </div>
-
-                                            <h3 className={`${luckiestGuy.className} text-2xl text-[#17d627] mb-2`}>
-                                                EcoPoints:
-                                            </h3>
-
-                                            <p className={`${luckiestGuy.className} text-5xl font-bold text-[#17d627] mb-2`}>{stats.totalPoints.toLocaleString()}</p>
-
-                                            <div className="bg-gradient-to-r from-green-100 to-emerald-50 rounded-full p-3 mb-4">
-                                                <div className="flex items-center justify-center gap-2">
-                                                    <Leaf
-                                                        className={` w-5 h-5 text-green-600 transition-all duration-1000 ${isHovered ? "" : ""}`}
-                                                        style={{ top: "15%", left: "15%" }}
-                                                    />
-                                                    <span className="text-green-600 font-bold text-sm" title="Total de actividades enviadas">Actividades: {stats.activityCount}</span>
-
-                                                </div>
-                                            </div>
-
-
-                                            {/* Próximo Objetivo - Funcionalidad implementada */}
-                                            <span className="text-sky-400 font-bold ">Próximo Objetivo</span>
-                                            <div className={`${luckiestGuy.className} space-y-2 tracking-wider`}>
-                                                <div className="flex flex-col justify-center items-center text-sm">
-                                                    <span className="text-[#17d627]">{nextGoal.toLocaleString()} EcoPoints</span>
-                                                </div>
-
-                                                {/* Barra de progreso dinámica */}
-                                                <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-                                                    <div
-                                                        className="bg-gradient-to-r from-sky-400 via-blue-500 to-teal-500 h-3 rounded-full relative transition-all duration-700 ease-out"
-                                                        style={{ width: `${progress}%` }}
-                                                    >
-                                                        <div className="absolute inset-0 bg-white/30 animate-pulse"></div>
-                                                    </div>
-                                                </div>
-
-                                                {/* Indicador de progreso en texto */}
-                                                <div className="flex flex-col justify-between items-center text-xs text-[#17d627] mt-1">
-                                                    <span>{calculatePreviousGoal(stats.totalPoints).toLocaleString()} Epts</span>
-                                                    <span className={`text-[16px] text-sky-400`}>{progress.toFixed(1)}%</span>
-                                                    <span>{nextGoal.toLocaleString()} Epts</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     )}
+                    <DashboardEcoPointsUserCard />
                     {
                         currentSession.session?.userType === "ADMIN" && (
                             <div className="mt-3 flex justify-center items-center transition-all ease-linear duration-300 rounded-md border-none">
@@ -423,6 +372,85 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
             </footer>
         </div>
     );
+    function DashboardEcoPointsUserCard() {
+        return (
+            <div className="mt-4">
+                <div
+                    className="w-full relative overflow-hidden bg-white"
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                >
+
+
+                    {/* Inner card */}
+                    <div className="relative bg-white p-6 m-0.5 w-full">
+                        {/* Premium badge */}
+                        <div className="absolute top-4 right-4">
+                            <div className="bg-gradient-to-r from-sky-400 to-sky-500 rounded-full p-2">
+                                <Crown className={`w-5 h-5 text-white`} />
+                            </div>
+                        </div>
+
+
+                        <div className="text-center">
+                            <div className="mb-4">
+                                <Image
+                                    src="/eco_points_logo.png"
+                                    alt="EcoPoints Badge"
+                                    width={110}
+                                    height={90}
+                                    className={`mx-auto transition-transform duration-1000 ${isHovered ? "animate-heartbeat" : "animate-heartbeat"}`}
+                                />
+                            </div>
+
+                            <h3 className={`${luckiestGuy.className} text-2xl text-[#17d627] mb-2`}>
+                                EcoPoints:
+                            </h3>
+
+                            <p className={`${luckiestGuy.className} text-5xl font-bold text-[#17d627] mb-2`}>{stats.totalPoints.toLocaleString()}</p>
+
+                            <div className="bg-gradient-to-r from-green-100 to-emerald-50 rounded-full p-3 mb-4">
+                                <div className="flex items-center justify-center gap-2">
+                                    <Leaf
+                                        className={` w-5 h-5 text-green-600 transition-all duration-1000 ${isHovered ? "" : ""}`}
+                                        style={{ top: "15%", left: "15%" }}
+                                    />
+                                    <span className="text-green-600 font-bold text-sm" title="Total de actividades enviadas">Actividades: {stats.activityCount}</span>
+
+                                </div>
+                            </div>
+
+
+                            {/* Próximo Objetivo - Funcionalidad implementada */}
+                            <span className="text-sky-400 font-bold ">Próximo Objetivo</span>
+                            <div className={`${luckiestGuy.className} space-y-2 tracking-wider`}>
+                                <div className="flex flex-col justify-center items-center text-sm">
+                                    <span className="text-[#17d627]">{nextGoal.toLocaleString()} EcoPoints</span>
+                                </div>
+
+                                {/* Barra de progreso dinámica */}
+                                <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+                                    <div
+                                        className="bg-gradient-to-r from-sky-400 via-blue-500 to-teal-500 h-3 rounded-full relative transition-all duration-700 ease-out"
+                                        style={{ width: `${progress}%` }}
+                                    >
+                                        <div className="absolute inset-0 bg-white/30 animate-pulse"></div>
+                                    </div>
+                                </div>
+
+                                {/* Indicador de progreso en texto */}
+                                <div className="flex flex-col justify-between items-center text-xs text-[#17d627] mt-1">
+                                    <span>{calculatePreviousGoal(stats.totalPoints).toLocaleString()} Epts</span>
+                                    <span className={`text-[16px] text-sky-400`}>{progress.toFixed(1)}%</span>
+                                    <span>{nextGoal.toLocaleString()} Epts</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
 }
 
 
@@ -500,3 +528,4 @@ function MobileNavItem({
         </Link>
     );
 }
+

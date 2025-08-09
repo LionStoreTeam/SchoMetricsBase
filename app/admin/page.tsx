@@ -84,7 +84,7 @@ export default function AdminPage() {
                 {/* Tarjeta para Navegar a "Crear Nuevo Usuario STUDENT-TEACHER" */}
                 <Card className="shadow-lg flex flex-col justify-between items-center w-full lg:w-[700px] transition-all ease-linear duration-500 border-4 border-slate-50 rounded-xl hover:border-blue-200">
                     <CardHeader>
-                        <div className="flex items-center gap-3 text-center">
+                        <div className="flex flex-col justify-center items-center gap-2 md:flex-row md:items-center md:justify-center">
                             <UserCheck2 className="h-6 w-6 text-[#2e86c1]" />
                             <CardTitle>Crear NUEVA cuenta de Usuario <span className="text-[#2e86c1]">(ESTUDIANTE / DOCENTE)</span></CardTitle>
                         </div>
@@ -110,7 +110,7 @@ export default function AdminPage() {
                 {/* Tarjeta para Navegar a "Crear Nuevo Usuario ADMIN" */}
                 <Card className="shadow-lg flex flex-col justify-between items-center w-full lg:w-[700px] transition-all ease-linear duration-500 border-4 border-slate-50 rounded-xl hover:border-blue-200">
                     <CardHeader>
-                        <div className="flex items-center gap-3 text-center">
+                        <div className="flex flex-col justify-center items-center gap-2 md:flex-row md:items-center md:justify-center">
                             <UserCog2 className="h-6 w-6 text-[#2e86c1]" />
                             <CardTitle>Crear NUEVA cuenta de Usuario <span className="text-[#2e86c1]">(ADMINISTRADOR)</span></CardTitle>
                         </div>
@@ -128,7 +128,7 @@ export default function AdminPage() {
                         <Link href="/admin/auth/registro-admin">
                             <Button className="w-full bg-[#2e86c1] hover:bg-sky-700 tracking-wider">
                                 <PlusCircle className="mr-2 h-4 w-4" />
-                                Crear Cuenta Administrador
+                                Crear Cuenta ADMIN
                             </Button>
                         </Link>
                     </CardFooter>
@@ -136,7 +136,7 @@ export default function AdminPage() {
                 {/* Tarjeta para Navegar a "ELIMINAR USUARIOS" */}
                 <Card className="shadow-lg flex flex-col justify-between items-center w-full lg:w-[700px] transition-all ease-linear duration-500 border-4 border-slate-50 rounded-xl hover:border-red-200">
                     <CardHeader>
-                        <div className="flex items-center text-center justify-center gap-3">
+                        <div className="flex flex-col justify-center items-center gap-2 md:flex-row md:items-center md:justify-center">
                             <UserRoundX className="h-6 w-6 text-red-500" />
                             <CardTitle>Elimina Usuarios de SchoMetrics</CardTitle>
                         </div>
@@ -162,7 +162,7 @@ export default function AdminPage() {
                 {/* Tarjeta para Navegar a "Administrar Actividades" */}
                 <Card className="shadow-lg flex flex-col justify-between items-center w-full lg:w-[700px] transition-all ease-linear duration-500 border-4 border-slate-50 rounded-xl hover:border-purple-200">
                     <CardHeader>
-                        <div className="flex items-center text-center justify-center gap-3">
+                        <div className="flex flex-col justify-center items-center gap-2 md:flex-row md:items-center md:justify-center">
                             <MonitorCheck className="h-6 w-6 text-purple-500" />
                             <CardTitle>Administrar las Actividades</CardTitle>
                         </div>
@@ -188,7 +188,7 @@ export default function AdminPage() {
                 {/* Tarjeta para Navegar a "Crear/Editar Avisos" */}
                 <Card className="shadow-lg flex flex-col justify-between items-center w-full lg:w-[700px] transition-all ease-linear duration-500 border-4 border-slate-50 rounded-xl hover:border-lime-200">
                     <CardHeader>
-                        <div className="flex items-center text-center justify-center gap-3">
+                        <div className="flex flex-col justify-center items-center gap-2 md:flex-row md:items-center md:justify-center">
                             <Megaphone className="h-6 w-6 text-lime-400" />
                             <CardTitle>Crear o Editar Avisos</CardTitle>
                         </div>
@@ -214,7 +214,7 @@ export default function AdminPage() {
                 {/* Tarjeta para Navegar a "Añadir Nuevo Centro de Acopio" */}
                 <Card className="shadow-lg flex flex-col justify-between items-center w-full lg:w-[700px] transition-all ease-linear duration-500 border-4 border-slate-50 rounded-xl hover:border-cyan-200">
                     <CardHeader>
-                        <div className="flex items-center text-center justify-center gap-3">
+                        <div className="flex flex-col justify-center items-center gap-2 md:flex-row md:items-center md:justify-center">
                             <Building className="h-6 w-6 text-cyan-300" />
                             <CardTitle>Gestionar Centros de Acopio</CardTitle>
                         </div>
@@ -232,7 +232,7 @@ export default function AdminPage() {
                         <Link href="/admin/nuevo-centro" >
                             <Button className="w-full bg-cyan-500 hover:bg-cyan-600">
                                 <PlusCircle className="mr-2 h-4 w-4" />
-                                Añadir Nuevo Centro de Acopio
+                                Añadir Centro de Acopio
                             </Button>
                         </Link>
                     </CardFooter>
@@ -240,7 +240,7 @@ export default function AdminPage() {
                 {/* Tarjeta para Navegar a "Crear Nueva Recompensa" */}
                 <Card className="shadow-lg flex flex-col justify-between items-center w-full lg:w-[700px] transition-all ease-linear duration-500 border-4 border-slate-50 rounded-xl hover:border-amber-200">
                     <CardHeader>
-                        <div className="flex items-center text-center justify-center gap-3">
+                        <div className="flex flex-col justify-center items-center gap-2 md:flex-row md:items-center md:justify-center">
                             <Gift className="h-6 w-6 text-amber-500" />
                             <CardTitle>Crea o Edita  Recompensas</CardTitle>
                         </div>
@@ -258,7 +258,7 @@ export default function AdminPage() {
                         <Link href="/admin/crear-recompensa">
                             <Button className="w-full bg-amber-600 hover:bg-amber-700">
                                 <PlusCircle className="mr-2 h-4 w-4" />
-                                Ver todas las Recompensas
+                                Ver Recompensas
                             </Button>
                         </Link>
                     </CardFooter>
@@ -266,8 +266,8 @@ export default function AdminPage() {
                 {/* Tarjeta para Navegar a "SchoMetrics" */}
                 <Card className="shadow-lg flex flex-col justify-between items-center w-full lg:w-[700px] transition-all ease-linear duration-500 border-4 border-slate-50 rounded-xl hover:border-emerald-200">
                     <CardHeader>
-                        <div className="flex items-center text-center justify-center gap-3">
-                            <Image src="logo.png" alt="SchoMetrics" width={50} height={50} objectFit="contain"></Image>
+                        <div className="flex flex-col justify-center items-center gap-2 md:flex-row md:items-center md:justify-center">
+                            <Image src="logo.png" alt="SchoMetrics" width={30} height={30} objectFit="contain"></Image>
                             <CardTitle>Navega a SchoMetrics</CardTitle>
                         </div>
                         <CardDescription className="pt-3 text-center">
@@ -298,6 +298,6 @@ export default function AdminPage() {
                     </CardFooter>
                 </Card>
             </div>
-        </div>
+        </div >
     );
 }

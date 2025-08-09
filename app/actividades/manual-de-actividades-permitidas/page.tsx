@@ -10,7 +10,7 @@ import DashboardLayout from "@/app/components/DashboardLayout";
 export default function ActivitiesManual() {
     return (
         <DashboardLayout>
-            <div className="flex justify-center mt-6">
+            <div className="flex justify-center mt-20 lg:mt-6">
                 <Link href="/actividades">
                     <Button className="bg-green-600 hover:bg-green-700 rounded-md shadow-md">
                         <ArrowLeftCircleIcon className="mr-2 h-4 w-4" />
@@ -18,11 +18,11 @@ export default function ActivitiesManual() {
                     </Button>
                 </Link>
             </div>
-            <div className="container mx-auto px-4 py-8 mt-16 lg:mt-0">
+            <div className="container mx-auto px-4 py-8 mt-6">
                 {/* Sección de Actividades Permitidas */}
                 <Card className="max-w-4xl mx-auto mb-8">
                     <CardHeader>
-                        <div className="flex items-center gap-3 mb-2">
+                        <div className="flex flex-col justify-center items-center text-center gap-3 mb-2 lg:flex-row lg:items-center lg:justify-start">
                             <CheckCircle2 className="h-7 w-7 text-green-600" />
                             <CardTitle className="text-2xl font-semibold">Manual de Actividades Permitidas</CardTitle>
                         </div>
@@ -68,7 +68,7 @@ export default function ActivitiesManual() {
                 {/* Sección de Actividades No Permitidas y Prohibidas */}
                 <Card className="max-w-4xl mx-auto mb-8">
                     <CardHeader>
-                        <div className="flex items-center gap-3 mb-2">
+                        <div className="flex flex-col justify-center items-center text-center gap-3 mb-2 lg:flex-row lg:items-center lg:justify-start">
                             <AlertCircle className="h-7 w-7 text-red-600" />
                             <CardTitle className="text-2xl font-semibold">Actividades No Permitidas en SchoMetrics</CardTitle>
                         </div>
@@ -103,7 +103,7 @@ export default function ActivitiesManual() {
                                 <p className="font-extrabold text-red-600">X</p>
                                 <span>Cualquier tipo de violencia o comportamiento inadecuado dentro de la Plataforma.</span>
                             </li>
-                            <li className="p-2 border-2 border-red-700 rounded-sm flex items-center gap-3 text-red-900 font-bold">
+                            <li className="p-2 border-2 border-red-700 rounded-sm flex flex-col justify-center items-center gap-3 mb-2 lg:flex-row lg:items-center lg:justify-start text-red-900 font-bold">
                                 <AlertCircle className="h-7 w-7" />
                                 <span>Toda Actividad enviada será revisada por un Administrador de SchoMetrics para validar su aprobación.</span>
                             </li>
@@ -146,7 +146,7 @@ export default function ActivitiesManual() {
                 {/* Sección de Ejemplos de Actividades y EcoPoints */}
                 <Card className="max-w-4xl mx-auto">
                     <CardHeader>
-                        <div className="flex items-center gap-3 mb-2">
+                        <div className="flex flex-col justify-center items-center text-center gap-3 mb-2 lg:flex-row lg:items-center lg:justify-start">
                             <Trees className="h-7 w-7 text-green-600" />
                             <CardTitle className="text-2xl font-semibold">Ejemplos de Actividades y EcoPoints Asignados</CardTitle>
                         </div>
