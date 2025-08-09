@@ -179,34 +179,20 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                                             </AvatarFallback>
                                         </Avatar>
                                         <p className="font-medium text-gray-800 uppercase">{profile.name}</p>
-                                        <p className="text-sm text-gray-500">Matricula: <span className="text-[#00b38c] font-semibold">{profile.matricula}</span></p>
+                                        <p className="text-start text-sm text-gray-500">Matricula:
+                                            <span className="text-[#00b38c] font-semibold">{profile.matricula}</span>
+                                        </p>
+                                        <p className="mt-1 text-start text-sm font-semibold text-[#17d627]">EcoPoints:
+                                            <span className="text-[#17d627] font-bold">{profile.points}</span>
+                                        </p>
+                                        <p className="mt-1 text-start text-sm font-semibold text-teal-600 bg-green-100 rounded-xl px-4 py-1">
+                                            Actividades:
+                                            <span className="font-bold">
+                                                {stats.activityCount}
+                                            </span>
+                                        </p>
                                     </div>
                                 )}
-                                <div className="flex flex-col justify-center items-center">
-                                    <div className="flex justify-center items-center gap-2 mb-4 text-center">
-                                        <Image
-                                            src="/eco_points_logo.png"
-                                            alt="EcoPoints Badge"
-                                            width={65}
-                                            height={50}
-                                            className={`mx-auto transition-transform duration-1000 ${isHovered ? "animate-heartbeat" : "animate-heartbeat"}`}
-                                        />
-                                        <h3 className={`${luckiestGuy.className} text-lg text-[#17d627]`}>
-                                            EcoPoints:
-                                        </h3>
-                                        <p className={`${luckiestGuy.className} text-xl font-bold text-[#17d627]`}>{stats.totalPoints.toLocaleString()}</p>
-                                    </div>
-                                    <div className="bg-gradient-to-r from-green-100 to-emerald-50 rounded-full p-3 mb-4">
-                                        <div className="flex items-center justify-center gap-2">
-                                            <Leaf
-                                                className={` w-5 h-5 text-green-600 transition-all duration-1000 ${isHovered ? "" : ""}`}
-                                                style={{ top: "15%", left: "15%" }}
-                                            />
-                                            <span className="text-green-600 font-bold text-sm" title="Total de actividades enviadas">Actividades: {stats.activityCount}</span>
-
-                                        </div>
-                                    </div>
-                                </div>
                                 {
                                     currentSession.session?.userType === "ADMIN" && (
                                         <div className="my-3 mr-3 p-2 transition-all ease-linear duration-300 rounded-md border-none">

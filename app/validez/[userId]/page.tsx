@@ -168,7 +168,7 @@ const ValidezPage = () => {
 
                             {/* Información Académica */}
                             <div className="space-y-4">
-                                <h3 className="text-lg font-semibold text-gray-900 border-b pb-2">Información Académica</h3>
+                                <h3 className="text-lg font-semibold text-gray-900 border-b pb-2">Información de Trayectoria</h3>
                                 <div className="space-y-3">
                                     <div>
                                         <label className="text-sm font-medium text-gray-500">EcoPoint Totales</label>
@@ -237,7 +237,7 @@ const ValidezPage = () => {
                             </div>
                         </div>
                         <div className="my-5 flex w-full justify-center items-center">
-                            <Link href="/dashboard">
+                            <Link href="/inicio">
                                 <Button className="w-max bg-teal-500 text-white hover:bg-teal-600">
                                     <ArrowRightLeftIcon className="mr-2 h-4 w-4" />
                                     Ir a SchoMetrics
