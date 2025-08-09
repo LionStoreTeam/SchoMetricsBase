@@ -171,7 +171,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                                     Menú de navegación principal de la aplicación EcoTrack MX.
                                 </SheetDescription>
                                 {profile && (
-                                    <div className="flex flex-col items-center my-10">
+                                    <div className="flex flex-col items-center mt-2">
                                         <Avatar className="h-20 w-20 mb-3">
                                             <AvatarImage src={profile.profile?.publicAvatarDisplayUrl || ""} alt={profile.name || "Avatar"} />
                                             <AvatarFallback className="text-xl bg-teal-100 text-teal-600">
@@ -182,20 +182,32 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                                         <p className="text-start text-sm text-gray-500">Matricula:
                                             <span className="text-[#00b38c] font-semibold">{profile.matricula}</span>
                                         </p>
-                                        <p className="mt-1 text-start text-sm font-semibold text-[#17d627]">EcoPoints:
-                                            <span className="text-[#17d627] font-bold">{profile.points}</span>
-                                        </p>
-                                        <p className="mt-1 text-start text-sm font-semibold text-teal-600 bg-green-100 rounded-xl px-4 py-1">
-                                            Actividades:
-                                            <span className="font-bold">
-                                                {stats.activityCount}
-                                            </span>
-                                        </p>
+                                        <div className="mt-1">
+                                            <div className="flex items-center justify-center gap-2">
+                                                <Image
+                                                    src="/eco_points_logo.png"
+                                                    alt="EcoPoints Badge"
+                                                    width={23}
+                                                    height={20}
+                                                    className={`mx-auto transition-transform duration-1000 ${isHovered ? "animate-heartbeat" : "animate-heartbeat"}`}
+                                                />
+                                                <span className="text-[#17d627] font-semibold text-sm" title="Total de actividades enviadas">EcoPoints: {profile.points}</span>
+                                            </div>
+                                        </div>
+                                        <div className="mt-1">
+                                            <div className="flex items-center justify-center gap-2">
+                                                <Leaf
+                                                    className={` w-4 h-4 text-green-600 transition-all duration-1000 ${isHovered ? "animate-pulse" : "animate-pulse"}`}
+                                                    style={{ top: "15%", left: "15%" }}
+                                                />
+                                                <span className="text-green-600 font-semibold text-sm" title="Total de actividades enviadas">Actividades: {stats.activityCount}</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 )}
                                 {
                                     currentSession.session?.userType === "ADMIN" && (
-                                        <div className="my-3 mr-3 p-2 transition-all ease-linear duration-300 rounded-md border-none">
+                                        <div className="mt-2 mr-3 p-2 transition-all ease-linear duration-300 rounded-md border-none">
                                             <Link href="/admin">
                                                 <Button size="icon" className="w-full px-3 justify-start text-white bg-rose-500 hover:bg-red-600 transition-all ease-in-out duration-300 hover:-translate-x-1">
                                                     <UserCog className="h-5 w-5" />
