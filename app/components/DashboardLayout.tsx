@@ -155,7 +155,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                             </Button>
                         </SheetTrigger>
                         <SheetContent side="left" className="w-[280px] sm:w-[320px] bg-white p-0">
-                            <div className="flex flex-col h-full">
+                            <div className="flex flex-col h-full overflow-auto">
                                 <div className="flex items-center justify-between p-4 border-b">
                                     <div className="flex items-center gap-2">
                                         <Image src="/logo.png" alt="logo" width={70} height={70} priority objectFit="contain" />
@@ -170,6 +170,26 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                                 <SheetDescription className="sr-only">
                                     Menú de navegación principal de la aplicación EcoTrack MX.
                                 </SheetDescription>
+                                <div className="mx-2 text-sm p-2">
+                                    <span>
+                                        Notificaciones: {" "}
+                                        <Link href="/perfil#notifications_tab" passHref> {/* Enlace a la pestaña de notificaciones del perfil */}
+                                            <Button variant="ghost" size="icon" className="relative text-gray-600">
+                                                <Bell className="h-5 w-5" />
+                                                {unreadNotifications > 0 && (
+                                                    <span className="absolute top-0.5 right-0.5 flex h-3 w-3">
+                                                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                                                        <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500 border-white border-px"></span>
+                                                    </span>
+                                                )}
+                                                <span className="sr-only">Notificaciones</span>
+                                            </Button>
+                                        </Link>
+                                    </span>
+                                </div>
+                                <Button variant="ghost" className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50" onClick={handleLogout}>
+                                    <LogOut className="mr-2 h-5 w-5" />Cerrar Sesión
+                                </Button>
                                 {profile && (
                                     <div className="flex flex-col items-center mt-2">
                                         <Avatar className="h-20 w-20 mb-3">
@@ -217,7 +237,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                                         </div>
                                     )
                                 }
-                                <nav className="flex-1 p-2 space-y-1 overflow-y-auto">
+                                <nav className="flex-1 p-2 space-y-1 overflow-y-auto min-h-screen">
                                     <MobileNavItem href="/inicio" icon={<LayoutDashboard className="h-5 w-5" />} label="Inicio" active={pathname === "/inicio"} />
                                     <MobileNavItem href="/actividades" icon={<Leaf className="h-5 w-5" />} label="Actividades" active={pathname.startsWith("/actividades")} />
                                     <MobileNavItem href="/estadisticas" icon={<BarChart2 className="h-5 w-5" />} label="Estadísticas" active={pathname === "/estadisticas"} />
@@ -230,28 +250,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                                     <MobileNavItem href="/centros-de-acopio" icon={<Map className="h-5 w-5" />} label="Centros de Acopio" active={pathname === "/centros-de-acopio"} />
                                     <MobileNavItem href="/perfil" icon={<User className="h-5 w-5" />} label="Mi Perfil" active={pathname === "/perfil"} />
                                 </nav>
-                                <div className="mx-5 mb-5 text-sm p-2">
-                                    <span>
-                                        Notificaciones: {" "}
-                                        <Link href="/perfil#notifications_tab" passHref> {/* Enlace a la pestaña de notificaciones del perfil */}
-                                            <Button variant="ghost" size="icon" className="relative text-gray-600">
-                                                <Bell className="h-5 w-5" />
-                                                {unreadNotifications > 0 && (
-                                                    <span className="absolute top-0.5 right-0.5 flex h-3 w-3">
-                                                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                                                        <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500 border-white border-px"></span>
-                                                    </span>
-                                                )}
-                                                <span className="sr-only">Notificaciones</span>
-                                            </Button>
-                                        </Link>
-                                    </span>
-                                </div>
-                                <div className="mt-auto p-4 border-t">
-                                    <Button variant="ghost" className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50" onClick={handleLogout}>
-                                        <LogOut className="mr-2 h-5 w-5" />Cerrar Sesión
-                                    </Button>
-                                </div>
+
                             </div>
                         </SheetContent>
                     </Sheet>
