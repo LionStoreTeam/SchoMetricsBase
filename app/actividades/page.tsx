@@ -260,9 +260,12 @@ export default function ActivitiesPage() {
                         <span className="font-bold"> ecosoporte@schometricsmx.com</span>
                     </span>
                 </StickyBanner>
-                <div className="p-6 flex flex-col gap-2 text-white bg-gradient-to-r from-green-600 to-green-700 rounded-xl shadow-md">
-                    <h1 className="text-3xl font-bold tracking-tight">Mis Actividades</h1>
-                    <p className="">Gestiona y visualiza tus actividades ecológicas registradas.</p>
+                <div className="mt-16 lg:mt-0 p-8 flex flex-col gap-3 text-white bg-gradient-to-br from-green-500 via-emerald-600 to-green-600 rounded-xl shadow-2xl">
+                    <h1 className="text-4xl font-bold tracking-tight flex flex-col md:flex-row items-center gap-3">
+                        <Leaf className="h-10 w-10 animate-bounce" />
+                        Mis Actividades
+                    </h1>
+                    <p className="text-lg opacity-90 text-center md:text-start">Gestiona y visualiza tus actividades ecológicas registradas</p>
                 </div>
                 <div className="w-auto flex justify-center items-center">
                     <Link href="/actividades/manual-de-actividades-permitidas" title="Revisa el Manual de Actividades Permitidas">

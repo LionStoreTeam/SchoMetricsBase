@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Leaf, Trees, Recycle, PlusCircle, FileDownIcon, FileBadgeIcon, Award, HeartCrack } from "lucide-react"
+import { Leaf, Trees, Recycle, PlusCircle, FileDownIcon, FileBadgeIcon, Award, HeartCrack, BarChart2 } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -136,9 +136,12 @@ export default function StatsPage() {
     return (
         <DashboardLayout>
             <div className="flex flex-col gap-8 m-5">
-                <div className="mt-16 lg:mt-0 p-5 flex flex-col gap-2 text-white bg-gradient-to-r from-teal-600 to-teal-500 rounded-xl">
-                    <h1 className="text-3xl font-bold tracking-tight">Estadísticas</h1>
-                    <p className="">Visualiza el impacto de tus actividades ecológicas</p>
+                <div className="mt-16 lg:mt-0 p-8 flex flex-col gap-3 text-white bg-gradient-to-br from-teal-500 via-teal-500 to-teal-600 rounded-xl shadow-2xl">
+                    <h1 className="text-4xl font-bold tracking-tight flex flex-col md:flex-row items-center gap-3">
+                        <BarChart2 className="h-10 w-10 animate-bounce" />
+                        Estadísticas
+                    </h1>
+                    <p className="text-lg opacity-90 text-center md:text-start">Visualiza el impacto de tus actividades ecológicas</p>
                 </div>
                 <div className="flex justify-end">
                     <Select value={period} onValueChange={setPeriod}>

@@ -315,7 +315,7 @@ export default function ProfilePage() {
         <>
             {AvatarInput()}
             <div className="flex flex-col gap-8 m-5 sm:m-10">
-                <div className="mt-10 lg:mt-0 p-6 flex flex-col gap-2 text-white bg-gradient-to-r from-red-950 to-black rounded-xl shadow-lg">
+                <div className="mt-10 lg:mt-0 p-6 flex flex-col gap-2 text-white bg-gradient-to-r from-rose-700 to-red-800 rounded-xl shadow-lg">
                     <div className="flex flex-col justify-center items-center gap-2 lg:flex-row  lg:justify-between">
                         <div className="my-3">
                             <div className="flex items-center gap-3">

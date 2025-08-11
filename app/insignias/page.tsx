@@ -40,16 +40,13 @@ export default function BadgesPage() {
     return (
         <DashboardLayout>
             <div className="flex flex-col gap-8 m-5">
-                <div className="mt-16 lg:mt-0 p-5 flex flex-col gap-2 text-white bg-gradient-to-r from-yellow-500 to-amber-600 rounded-xl shadow-lg">
-                    <div className="flex items-center gap-3">
-                        <Award className="h-8 w-8" />
-                        <h1 className="text-3xl font-bold tracking-tight">Galería de Insignias</h1>
-                    </div>
-                    <p className="text-amber-100">
-                        Descubre todas las insignias que puedes obtener y sigue contribuyendo al medio ambiente.
-                    </p>
+                <div className="mt-16 lg:mt-0 p-8 flex flex-col gap-3 text-white bg-gradient-to-br from-yellow-500 to-amber-600 rounded-xl shadow-2xl">
+                    <h1 className="text-4xl font-bold tracking-tight flex flex-col md:flex-row items-center gap-3">
+                        <Award className="h-10 w-10 animate-bounce" />
+                        Galería de Insignias
+                    </h1>
+                    <p className="text-lg opacity-90 text-center md:text-start"> Descubre todas las insignias que puedes obtener y sigue contribuyendo al medio ambiente</p>
                 </div>
-
                 {isLoading ? (
                     <div className="flex justify-center items-center h-64">
                         <Loader2 className="h-12 w-12 animate-spin text-amber-600" />

@@ -10,9 +10,6 @@ import Image from "next/legacy/image"
 import toast from "react-hot-toast"
 import DashboardLayout from "../components/DashboardLayout"
 import { Badge } from "@/components/ui/badge"
-import { FlipWords } from "@/components/ui/flip-words"
-import SchometricsAnnoucementsCarousel from "./components/Announcements"
-
 
 
 export default function Inicio() {
@@ -148,9 +145,7 @@ export default function Inicio() {
                         </span>
                     </div>
                 </div>
-                <div className="my-5">
-                    <SchometricsAnnoucementsCarousel />
-                </div>
+
                 {/* Platform Overview */}
                 <section className="py-20 px-4 bg-white rounded-lg">
                     <div className="container mx-auto px-4">
@@ -315,7 +310,7 @@ export default function Inicio() {
                 </section>
 
                 {/* Call to Action */}
-                <section className="py-20 bg-gradient-to-r from-[#00B38C] to-emerald-600 text-white rounded-b-xl flex flex-col justify-center items-center">
+                <section className="py-20 bg-gradient-to-br from-emerald-400 via-emerald-600 to-emerald-400 text-white rounded-b-xl flex flex-col justify-center items-center">
                     <div className="p-4 text-center">
                         <div className="max-w-4xl mx-auto space-y-8">
                             <h2 className="text-3xl lg:text-5xl font-bold">¿Listo para hacer la diferencia?</h2>

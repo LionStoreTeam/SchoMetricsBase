@@ -184,13 +184,13 @@ export default function NewShortVideoPage() {
                         <CardContent className="space-y-6">
                             {/* ... Título, Descripción, Tema, Autor, Institución, Info. Autor ... */}
                             <div className="space-y-1">
-                                <Label htmlFor="title-video-new">Título <span className="text-red-500">*</span></Label>
-                                <Input id="title-video-new" name="title" value={formDataState.title} onChange={handleInputChange} disabled={isSubmitting} className={errors.title ? "border-red-500" : ""} />
+                                <Label htmlFor="title">Título <span className="text-red-500">*</span></Label>
+                                <Input id="title" type="text" placeholder="Añade un Título" name="title" value={formDataState.title} onChange={handleInputChange} disabled={isSubmitting} className={errors.title ? "border-red-500" : ""} />
                                 {errors.title && <p className="text-sm text-red-500">{errors.title}</p>}
                             </div>
                             <div className="space-y-1">
-                                <Label htmlFor="description-video-new">Descripción</Label>
-                                <Textarea id="description-video-new" name="description" value={formDataState.description || ""} onChange={handleInputChange} rows={3} disabled={isSubmitting} />
+                                <Label htmlFor="description">Descripción</Label>
+                                <Textarea id="description" placeholder="Añade una breve descripción del video..." name="description" value={formDataState.description || ""} onChange={handleInputChange} rows={3} disabled={isSubmitting} />
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="space-y-1">
@@ -204,8 +204,8 @@ export default function NewShortVideoPage() {
                                     {errors.topic && <p className="text-sm text-red-500">{errors.topic}</p>}
                                 </div>
                                 <div className="space-y-1">
-                                    <Label htmlFor="duration-video-new">Duración (segundos)</Label>
-                                    <Input id="duration-video-new" name="duration" type="number" value={formDataState.duration || ""} onChange={handleInputChange} placeholder="Ej: 180" disabled={isSubmitting} />
+                                    <Label htmlFor="duration">Duración (segundos)</Label>
+                                    <Input id="duration" name="duration" type="number" value={formDataState.duration || ""} onChange={handleInputChange} placeholder="Ej: 180" disabled={isSubmitting} />
                                     {errors.duration && <p className="text-sm text-red-500">{errors.duration}</p>}
                                 </div>
                             </div>
@@ -278,13 +278,13 @@ export default function NewShortVideoPage() {
                                 {/* ... campos de autor como antes ... */}
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div className="space-y-1">
-                                        <Label htmlFor="authorName-video-new">Nombre del Autor <span className="text-red-500">*</span></Label>
-                                        <Input id="authorName-video-new" name="authorName" value={formDataState.authorName} onChange={handleInputChange} disabled className={errors.authorName ? "border-red-500" : "uppercase"} />
+                                        <Label htmlFor="authorName">Nombre del Autor <span className="text-red-500">*</span></Label>
+                                        <Input id="authorName" name="authorName" value={formDataState.authorName} onChange={handleInputChange} disabled className={errors.authorName ? "border-red-500" : "uppercase"} />
                                         {errors.authorName && <p className="text-sm text-red-500">{errors.authorName}</p>}
                                     </div>
                                     <div className="space-y-1">
-                                        <Label htmlFor="authorInstitution-video-new">Institución <span className="text-red-500">*</span></Label>
-                                        <Input id="authorInstitution-video-new" name="authorInstitution" value={formDataState.authorInstitution} onChange={handleInputChange} disabled={isSubmitting || !!(session?.userType === UserType.TEACHER || session?.userType === UserType.ADMIN)} className={errors.authorInstitution ? "border-red-500" : ""} />
+                                        <Label htmlFor="authorInstitution">Institución <span className="text-red-500">*</span></Label>
+                                        <Input id="authorInstitution" name="authorInstitution" value={formDataState.authorInstitution} onChange={handleInputChange} disabled={isSubmitting || !!(session?.userType === UserType.TEACHER || session?.userType === UserType.ADMIN)} className={errors.authorInstitution ? "border-red-500" : ""} />
                                         {errors.authorInstitution && <p className="text-sm text-red-500">{errors.authorInstitution}</p>}
                                     </div>
                                 </div>
@@ -294,7 +294,7 @@ export default function NewShortVideoPage() {
                                             Si el video es de terceros (YouTube, etc.), añade toda la información necesaria referenciando al autor(es) original.
                                         </p>
                                     </Label>
-                                    <Textarea id="authorInfo-video-new" name="authorInfo" placeholder="Añade más detalles o información..." value={formDataState.authorInfo || ""} onChange={handleInputChange} rows={2} disabled={isSubmitting} />
+                                    <Textarea id="authorInfo" name="authorInfo" placeholder="Añade más detalles o información..." value={formDataState.authorInfo || ""} onChange={handleInputChange} rows={2} disabled={isSubmitting} />
                                     {errors.authorInfo && <p className="text-sm text-red-500">{errors.authorInfo}</p>}
                                 </div>
                             </div>

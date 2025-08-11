@@ -43,8 +43,6 @@ function useUserSession() {
                 if (res.ok) {
                     const data = await res.json();
                     setSession(data.user);
-                    console.log("Data User:", data.user);
-
                 } else {
                     setSession(null);
                 }
@@ -130,36 +128,6 @@ export default function NewEducationalArticlePage() {
         }
     };
 
-    const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (file) {
-            const validation = validateAvatarFile(file); // Reutilizando validación de avatar para simplicidad
-            if (!validation.valid) {
-                toast.error(validation.error || "Archivo de imagen de portada inválido.");
-                setCoverImageFile(null);
-                setCoverImagePreview(null);
-                setErrors(prev => ({ ...prev, coverImageUrl: validation.error }));
-                if (coverImageInputRef.current) coverImageInputRef.current.value = "";
-                return;
-            }
-            setCoverImageFile(file);
-            setCoverImagePreview(URL.createObjectURL(file));
-            setErrors(prev => ({ ...prev, coverImageUrl: undefined }));
-        } else {
-            setCoverImageFile(null);
-            setCoverImagePreview(null);
-        }
-    };
-
-    const removeCoverImage = () => {
-        setCoverImageFile(null);
-        if (coverImagePreview) URL.revokeObjectURL(coverImagePreview);
-        setCoverImagePreview(null);
-        setFormData(prev => ({ ...prev, coverImageUrl: "" })); // Limpiar si se estaba usando una URL manual
-        if (coverImageInputRef.current) coverImageInputRef.current.value = "";
-    };
-
-
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         setErrors({});
@@ -208,9 +176,6 @@ export default function NewEducationalArticlePage() {
     };
 
     const articleTopicsArray = Object.values(ArticleTopic);
-    console.log(session);
-
-
     return (
         <DashboardLayout>
             <FloatingNavEducation />
@@ -270,7 +235,7 @@ export default function NewEducationalArticlePage() {
 
                             {/* Imagen de Portada */}
                             <div className="space-y-1">
-                                <Label htmlFor="coverImageFile">Imagen de Portada (Opcional)</Label>
+                                <Label htmlFor="coverImageUrl">Imagen de Portada (Opcional)</Label>
                                 <Input
                                     id="coverImageUrl"
                                     name="coverImageUrl"

@@ -27,7 +27,6 @@ import EcoPointsUserCard from "../components/EcoPointsUserCard";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { StickyBanner } from "@/components/ui/sticky-banner";
-import ShowUserNotifications from "./components/user-notifications";
 import DashboardLayout from "../components/DashboardLayout";
 
 // Definición para Notificaciones (puedes moverla a types/types.ts)
@@ -369,11 +368,13 @@ export default function ProfilePage() {
                         <span className="font-bold"> ecosoporte@SchoMetrics.com</span>
                     </span>
                 </StickyBanner>
-                <div className="p-5 flex flex-col gap-2 text-white bg-gradient-to-r from-black to-slate-800 rounded-xl">
-                    <h1 className="text-3xl font-bold tracking-tight">Mi Perfil</h1>
-                    <p className="">Gestiona tu información personal, mira tus logros obtenidos y notificaciones.</p>
+                <div className="mt-16 lg:mt-0 p-8 flex flex-col gap-3 text-white bg-gradient-to-br from-black to-slate-800 rounded-xl shadow-2xl">
+                    <h1 className="text-4xl font-bold tracking-tight flex flex-col md:flex-row items-center gap-3">
+                        <User className="h-10 w-10 animate-bounce" />
+                        Mi Perfil
+                    </h1>
+                    <p className="text-lg opacity-90 text-center md:text-start">Gestiona tu información personal, mira tus logros obtenidos y notificaciones</p>
                 </div>
-
                 <div className="w-full flex flex-col justify-center items-center gap-6 xl:flex-row lg:justify-between xl:items-start"> {/* Manteniendo xl:grid-cols-3 */}
                     <Card className="w-full md:col-span-1"> {/* Ajustado para que el perfil ocupe 1 columna en md y más grandes */}
                         <CardHeader className="relative">
@@ -600,19 +601,6 @@ export default function ProfilePage() {
                                     <ChangePasswordForm />
                                     {/* <div className="space-y-6"><div className="space-y-2"><h3 className="font-medium">Cambiar contraseña</h3><p className="text-sm text-muted-foreground">Actualiza tu contraseña para mantener tu cuenta segura</p></div><div className="grid gap-4"><div className="grid gap-2"><Label htmlFor="current-password">Contraseña actual</Label><Input id="current-password" type="password" /></div><div className="grid gap-2"><Label htmlFor="new-password">Nueva contraseña</Label><Input id="new-password" type="password" /></div><div className="grid gap-2"><Label htmlFor="confirm-password">Confirmar nueva</Label><Input id="confirm-password" type="password" /></div></div><Button className="bg-green-600 hover:bg-green-700">Actualizar contraseña</Button></div> */}
                                 </TabsContent>
-                                {/* Sección de Notificaciones */}
-                                <div className="my-10 flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <div className="p-2 bg-slate-100 rounded-lg">
-                                            <MessageCircleQuestion className="h-5 w-5 text-sky-900" />
-                                        </div>
-                                        <div>
-                                            <CardTitle className="text-xl text-gray-900">Mis Notificaciones</CardTitle>
-                                            <p className="text-gray-600 text-sm mt-1">Aquí se muestran las notificaciones de SchoMetrics</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <ShowUserNotifications />
                             </CardContent>
                         </Tabs>
                     </Card>

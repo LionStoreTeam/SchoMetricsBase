@@ -223,7 +223,7 @@ export default function ScoresPage() {
 
     return (
         <div className="flex flex-col gap-8 m-5 sm:m-10">
-            <div className="mt-10 lg:mt-0 p-6 flex flex-col gap-2 text-white bg-gradient-to-r from-red-600 to-red-700 rounded-xl shadow-lg">
+            <div className="mt-10 lg:mt-0 p-6 flex flex-col gap-2 text-white bg-gradient-to-r from-rose-700 to-red-800 rounded-xl shadow-lg">
                 <div className="flex flex-col justify-center items-center gap-2 lg:flex-row  lg:justify-between">
                     <div className="my-3">
                         <div className="flex items-center gap-3">
@@ -327,20 +327,20 @@ export default function ScoresPage() {
                                                 </TableCell>
                                                 <TableCell className="text-center text-teal-600 font-bold text-lg">{user.totalActivities}</TableCell>
                                                 <TableCell className="text-center font-bold text-[#53c932] text-lg">{user.totalPoints}</TableCell>
-                                                <TableCell className="text-center text-sky-950 font-bold">
+                                                <TableCell className="text-center text-slate-800 font-bold">
                                                     {format(new Date(user.memberSince), "dd MMM, yyyy", { locale: es })}
                                                 </TableCell>
-                                                <TableCell className="text-center flex gap-2 justify-center items-center">
+                                                <TableCell className="text-center flex flex-col gap-2">
                                                     <Link
                                                         href={`/admin/lista-de-usuarios/${user.id}`}
                                                     >
                                                         <Button
                                                             variant="default"
                                                             title={`Ver Información Completa de ${user.name} - ${user.matricula}`}
-                                                            className="bg-sky-950 hover:bg-sky-900 text-white"
+                                                            className="bg-slate-500 hover:bg-slate-600 text-white"
                                                         >
                                                             <Eye className="mr-1 h-4 w-4" />
-                                                            Ver Información Completa
+                                                            Ver Usuario
                                                         </Button>
                                                     </Link>
                                                     <AdminDeleteUser userId={user?.id} />

@@ -324,14 +324,13 @@ export default function CentrosDeAcopio() {
     return (
         <DashboardLayout>
             <div className="flex flex-col gap-6 m-4 sm:m-8">
-                <div className="mt-16 lg:mt-0 p-5 flex flex-col gap-1 text-white bg-gradient-to-r from-teal-500 to-cyan-600 rounded-xl shadow-lg">
-                    <div className="flex items-center gap-2">
-                        <MapPin className="h-7 w-7" />
-                        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Mapa de Centros de Acopio</h1>
-                    </div>
-                    <p className="text-sm sm:text-base text-cyan-100">Encuentra centros de acopio y redes de apoyo ambiental.</p>
+                <div className="mt-16 lg:mt-0 p-8 flex flex-col gap-3 text-white bg-gradient-to-br from-teal-500 to-cyan-600 rounded-xl shadow-2xl">
+                    <h1 className="text-4xl font-bold tracking-tight flex flex-col md:flex-row items-center gap-3">
+                        <MapPin className="h-10 w-10 animate-bounce" />
+                        Mapa de Centros de Acopio
+                    </h1>
+                    <p className="text-lg opacity-90 text-center md:text-start">Encuentra centros de acopio y redes de apoyo ambiental</p>
                 </div>
-
                 <Card className="shadow-md z-10">
                     <CardHeader className="p-4">
                         <form onSubmit={handleSearchSubmit} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-3 items-end">

@@ -71,8 +71,6 @@ export default function Home() {
               </div>
             </div>
           </section>
-
-
           {/* Contadores de Estádisticas Generales */}
           <section className="w-full py-12 md:py-16 lg:py-20 ">
             <div className="px-4 md:px-6">
@@ -91,14 +89,6 @@ export default function Home() {
           </section>
           {/* TimeLine Demo */}
           <TimelineSchoMetrics />
-          {/* Hero Tabs */}
-          {/* <section className="p-10">
-            <h1 className="mx-auto max-w-full text-center text-2xl font-bold text-slate-600 md:text-4xl lg:text-6xl">
-              ¿Cómo Funciona SchoMetrics?
-            </h1>
-            <TabsHero />
-          </section> */}
-          {/* Global */}
           <Globe />
         </motion.span>
       </main>

@@ -22,9 +22,9 @@ const AccordionMedia: React.FC<AccordionMediaProps> = ({ title, items }) => {
                     const ItemIcon = item.icon;
                     return (
                         <AccordionItem value={item.id} key={item.id} className="border bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                            <AccordionTrigger className="px-6 py-4 text-lg font-medium text-gray-700 hover:no-underline hover:text-green-600">
+                            <AccordionTrigger className="px-6 py-4 text-lg font-medium text-gray-700 hover:no-underline hover:text-orange-600">
                                 <div className="flex items-center gap-3">
-                                    {ItemIcon && <ItemIcon className="h-6 w-6 text-green-600" />}
+                                    {ItemIcon && <ItemIcon className="h-6 w-6 text-orange-600" />}
                                     {item.title}
                                 </div>
                             </AccordionTrigger>

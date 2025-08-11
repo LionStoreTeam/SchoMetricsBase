@@ -13,7 +13,7 @@ const ResourceSection: React.FC<ResourceSectionProps> = ({ section, cardType }) 
     return (
         <div className="mb-10">
             <div className="flex items-center gap-3 mb-5">
-                {SectionIcon && <SectionIcon className="h-8 w-8 text-green-700" />}
+                {SectionIcon && <SectionIcon className="h-8 w-8 text-orange-700" />}
                 <h2 className="text-2xl font-semibold text-gray-800">{section.title}</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">

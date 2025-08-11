@@ -4,7 +4,6 @@ import type React from "react"; // Necesario para Suspense
 import Link from "next/link";
 import LoginForm from "./login-form"; // Importa el nuevo componente cliente
 import { Suspense } from "react"; // Importa Suspense
-import { AuroraBackground } from "@/components/ui/aurora-background";
 import { motion } from "motion/react";
 
 // Un componente simple para el fallback de Suspense

@@ -62,14 +62,12 @@ export default function EducationPage() {
     return (
         <DashboardLayout>
             <div className="flex flex-col gap-8 m-5 sm:m-10">
-                <div className="mt-16 lg:mt-5 p-8 flex flex-col gap-2 text-white bg-gradient-to-r from-blue-900 to-gray-800 rounded-xl shadow-lg">
-                    <div className="flex items-center gap-3">
-                        <GraduationCap className="h-8 w-8" />
-                        <h1 className="text-3xl font-bold tracking-tight">Educación Ambiental</h1>
-                    </div>
-                    <p className="text-blue-100">
-                        Aquí encontrarás Artículos, Guías, Material Visual y mucho más para dasarrollarte como una persona ambientalmente sostenible.
-                    </p>
+                <div className="mt-16 lg:mt-0 p-8 flex flex-col gap-3 text-white bg-gradient-to-br from-blue-900 to-gray-800 rounded-xl shadow-2xl">
+                    <h1 className="text-4xl font-bold tracking-tight flex flex-col md:flex-row items-center gap-3">
+                        <GraduationCap className="h-10 w-10 animate-bounce" />
+                        Educación Ambiental
+                    </h1>
+                    <p className="text-lg opacity-90 text-center md:text-start">Aquí encontrarás Artículos, Guías, Material Visual y mucho más para convertirte en una persona ambientalmente sostenible</p>
                 </div>
                 <div className="flex flex-col gap-8 m-5 sm:m-10">
                     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">

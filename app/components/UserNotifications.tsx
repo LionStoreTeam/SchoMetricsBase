@@ -120,7 +120,7 @@ const ShowUserNotifications = () => {
     return (
         <div className="">
             {/* Sección de Notificaciones */}
-            <div className="space-y-3 max-h-[250px] overflow-y-auto pr-2 -mr-2"> {/* Ajustado max-h y padding */}
+            <div className="space-y-3 overflow-y-auto pr-2 -mr-2"> {/* Ajustado max-h y padding */}
 
                 {isLoadingNotifications ? (
                     <div className="flex justify-center items-center py-10"><Loader2 className="h-8 w-8 animate-spin text-green-600" /></div>

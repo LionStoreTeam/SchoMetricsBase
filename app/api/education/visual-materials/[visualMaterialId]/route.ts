@@ -9,8 +9,14 @@ import {
   getPublicS3Url,
 } from "@/lib/s3-service";
 import { UserType, VisualMaterialTopic } from "@prisma/client";
-import { MAX_FILES, MIN_FILES } from "@/types/types-s3-service";
+import {
+  bucketName,
+  MAX_FILES,
+  MIN_FILES,
+  s3Client,
+} from "@/types/types-s3-service";
 import { optimizeImage } from "@/lib/image-compress-utils";
+import { CopyObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3";
 
 const updateVisualMaterialSchema = z.object({
   title: z.string().min(3).max(150).optional(),
@@ -91,6 +97,7 @@ export async function PUT(
     const session = await getSession();
     const { visualMaterialId } = params;
 
+    // Buscar material existente
     const existingMaterial = await prisma.visualMaterial.findUnique({
       where: { id: visualMaterialId },
       include: { images: true },
@@ -103,6 +110,7 @@ export async function PUT(
       );
     }
 
+    // Validar permisos
     if (
       !session ||
       session.id !== existingMaterial.userId ||
@@ -115,13 +123,14 @@ export async function PUT(
       );
     }
 
+    // Leer FormData
     const formData = await request.formData();
     const formValues: Record<string, any> = {};
     const newImageFiles: File[] = [];
     const existingImageS3KeysRaw = formData.get("existingImageS3Keys") as
       | string
-      | null; // JSON string de {id, s3Key, order}[]
-    const imagesToDeleteRaw = formData.get("imagesToDelete") as string | null; // JSON string de s3Key[]
+      | null;
+    const imagesToDeleteRaw = formData.get("imagesToDelete") as string | null;
 
     formData.forEach((value, key) => {
       if (key.startsWith("images[")) {
@@ -134,6 +143,7 @@ export async function PUT(
     if (formValues.description === "") formValues.description = null;
     if (formValues.authorInfo === "") formValues.authorInfo = null;
 
+    // Validar datos
     const validationResult = updateVisualMaterialSchema.safeParse(formValues);
     if (!validationResult.success) {
       return NextResponse.json(
@@ -147,52 +157,46 @@ export async function PUT(
 
     const dataToUpdate = { ...validationResult.data };
 
+    // Procesar imágenes existentes y a eliminar
     const existingImages: { id: string; s3Key: string; order: number }[] =
       existingImageS3KeysRaw ? JSON.parse(existingImageS3KeysRaw) : [];
     const imagesToDeleteS3Keys: string[] = imagesToDeleteRaw
       ? JSON.parse(imagesToDeleteRaw)
       : [];
 
-    // Validar nuevas imágenes
-    if (
-      newImageFiles.length +
-        existingImages.filter(
-          (img) => !imagesToDeleteS3Keys.includes(img.s3Key)
-        ).length >
-      MAX_FILES
-    ) {
+    // Validaciones de cantidad
+    const remainingCount = existingImages.filter(
+      (img) => !imagesToDeleteS3Keys.includes(img.s3Key)
+    ).length;
+    if (newImageFiles.length + remainingCount > MAX_FILES) {
       return NextResponse.json(
         { error: `No puedes tener más de ${MAX_FILES} imágenes.` },
         { status: 400 }
       );
     }
-    if (
-      newImageFiles.length +
-        existingImages.filter(
-          (img) => !imagesToDeleteS3Keys.includes(img.s3Key)
-        ).length <
-      MIN_FILES
-    ) {
+    if (newImageFiles.length + remainingCount < MIN_FILES) {
       return NextResponse.json(
         { error: `Debes tener al menos ${MIN_FILES} imagen.` },
         { status: 400 }
       );
     }
 
+    // Validar archivos nuevos
     for (const file of newImageFiles) {
       const fileValidation = validateFile(file);
-      if (!fileValidation.valid)
+      if (!fileValidation.valid) {
         return NextResponse.json(
           { error: fileValidation.error || `Archivo inválido: ${file.name}` },
           { status: 400 }
         );
+      }
     }
 
+    // Usuario actual
     const currentUser = await prisma.user.findUnique({
       where: { id: session.id as string },
       include: { profile: true },
     });
-
     if (!currentUser) {
       return NextResponse.json(
         { error: "Usuario no encontrado" },
@@ -200,8 +204,41 @@ export async function PUT(
       );
     }
 
-    const updatedMaterial = await prisma.$transaction(async (tx) => {
-      // 1. Eliminar imágenes marcadas para borrar (de S3 y DB)
+    // Título final que se usará para carpeta en S3
+    const finalTitle = dataToUpdate.title ?? existingMaterial.title;
+
+    // Transacción
+    const finalUpdate = await prisma.$transaction(async (tx) => {
+      // 1. Mover imágenes existentes si cambia el título
+      if (existingMaterial.title !== finalTitle) {
+        for (const img of existingImages) {
+          const oldKey = img.s3Key;
+          const newKey = oldKey.replace(existingMaterial.title, finalTitle);
+
+          // Mover en S3
+          await s3Client.send(
+            new CopyObjectCommand({
+              Bucket: bucketName,
+              CopySource: `${bucketName}/${oldKey}`,
+              Key: newKey,
+            })
+          );
+          await s3Client.send(
+            new DeleteObjectCommand({
+              Bucket: bucketName,
+              Key: oldKey,
+            })
+          );
+
+          // Actualizar referencia en DB
+          await tx.visualMaterialImage.update({
+            where: { id: img.id },
+            data: { s3Key: newKey },
+          });
+        }
+      }
+
+      // 2. Eliminar imágenes marcadas
       if (imagesToDeleteS3Keys.length > 0) {
         for (const s3KeyToDelete of imagesToDeleteS3Keys) {
           await deleteFileFromS3(s3KeyToDelete);
@@ -211,9 +248,7 @@ export async function PUT(
         });
       }
 
-      // 2. Subir nuevas imágenes a S3
-      const newUploadedS3Keys: { s3Key: string; order: number }[] = [];
-      // Determinar el siguiente 'order' basado en las imágenes existentes que no se eliminan
+      // 3. Subir nuevas imágenes con título actualizado
       const remainingExistingImages = existingImages.filter(
         (img) => !imagesToDeleteS3Keys.includes(img.s3Key)
       );
@@ -222,6 +257,7 @@ export async function PUT(
           ? Math.max(...remainingExistingImages.map((img) => img.order))
           : -1;
 
+      const newUploadedS3Keys: { s3Key: string; order: number }[] = [];
       for (let i = 0; i < newImageFiles.length; i++) {
         const file = newImageFiles[i];
         const optimizedBuffer = await optimizeImage(file);
@@ -232,7 +268,7 @@ export async function PUT(
           "image/jpeg",
           currentUser.userType,
           currentUser.matricula,
-          updatedMaterial?.title as string
+          finalTitle
         );
         currentMaxOrder++;
         newUploadedS3Keys.push({
@@ -241,8 +277,8 @@ export async function PUT(
         });
       }
 
-      // 3. Actualizar el VisualMaterial y crear los nuevos VisualMaterialImage
-      const finalUpdate = await tx.visualMaterial.update({
+      // 4. Actualizar datos del VisualMaterial
+      const updated = await tx.visualMaterial.update({
         where: { id: visualMaterialId },
         data: {
           ...dataToUpdate,
@@ -255,12 +291,12 @@ export async function PUT(
         },
         include: { images: { orderBy: { order: "asc" } } },
       });
-      // Reordenar imágenes si es necesario (después de eliminaciones y adiciones)
+
+      // 5. Reordenar imágenes
       const allCurrentImageRecords = await tx.visualMaterialImage.findMany({
         where: { visualMaterialId },
-        orderBy: { createdAt: "asc" }, // O algún otro criterio si el 'order' inicial no es fiable tras eliminaciones
+        orderBy: { createdAt: "asc" },
       });
-
       for (let i = 0; i < allCurrentImageRecords.length; i++) {
         if (allCurrentImageRecords[i].order !== i) {
           await tx.visualMaterialImage.update({
@@ -269,21 +305,14 @@ export async function PUT(
           });
         }
       }
-      // Volver a fetchear con el orden correcto
-      return tx.visualMaterial.findUnique({
-        where: { id: visualMaterialId },
-        include: { images: { orderBy: { order: "asc" } } },
-      });
+
+      return updated;
     });
 
-    if (!updatedMaterial)
-      throw new Error(
-        "No se pudo actualizar el material después de la transacción."
-      );
-
+    // Respuesta con URLs públicas
     const responseVisualMaterial = {
-      ...updatedMaterial,
-      images: updatedMaterial.images.map((img) => ({
+      ...finalUpdate,
+      images: finalUpdate.images.map((img) => ({
         id: img.id,
         url: getPublicS3Url(img.s3Key),
         order: img.order,

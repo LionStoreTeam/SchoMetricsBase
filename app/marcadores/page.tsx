@@ -412,7 +412,7 @@ export default function ScoresPage() {
                     <div className="relative z-10">
                         <div className="flex flex-col justify-center items-center gap-4 mb-2 md:flex-row md:items-center md:justify-start">
                             <div className="p-3 bg-white/20 rounded-xl">
-                                <Trophy className="h-8 w-8" />
+                                <Trophy className="h-8 w-8 animate-bounce" />
                             </div>
                             <h1 className="text-4xl font-bold tracking-tight">SchoLíderes</h1>
                         </div>
@@ -421,7 +421,7 @@ export default function ScoresPage() {
                         </p>
                     </div>
                     <div className="absolute top-4 right-4 opacity-20">
-                        <Leaf className="w-24 h-24 text-white" />
+                        <Leaf className="w-24 h-24 text-white animate-pulse" />
                     </div>
                 </div>
 

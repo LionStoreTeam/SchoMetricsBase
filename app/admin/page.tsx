@@ -23,14 +23,14 @@ export default function AdminPage() {
                 const data = await response.json();
                 if (!data.user || data.user.role !== "ADMIN") {
                     toast.error("Acceso denegado.");
-                    router.push("/dashboard");
+                    router.push("/inicio");
                     return;
                 }
                 setIsAdmin(true);
             } catch (error) {
                 console.error("Error al verificar permisos:", error);
                 toast.error("Error al verificar permisos.");
-                router.push("/dashboard");
+                router.push("/inicio");
             } finally {
                 setIsLoading(false);
             }

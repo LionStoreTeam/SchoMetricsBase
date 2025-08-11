@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { Compass } from 'lucide-react';
+import { Globe } from 'lucide-react';
 import ResourceSection from './components/ResourceSection';
 import AccordionMedia from './components/AccordionMedia';
 import { directoryData } from './data';
@@ -13,14 +13,12 @@ export default function DirectorioAmbientalPage() {
         <DashboardLayout>
             <FloatingNavEducation />
             <div className="flex flex-col gap-8 p-6">
-                <div className="mt-16 lg:mt-0 p-6 flex flex-col gap-2 text-white bg-gradient-to-r from-green-600 to-teal-700 rounded-xl shadow-2xl">
-                    <div className="flex items-center gap-3">
-                        <Compass className="h-10 w-10" />
-                        <h1 className="text-4xl font-bold tracking-tight">Directorio de Recursos Ambientales</h1>
-                    </div>
-                    <p className="text-teal-100 text-lg">
-                        Explora organizaciones, entidades y materiales educativos clave para la sostenibilidad en México y Morelos.
-                    </p>
+                <div className="mt-16 lg:mt-0 p-8 flex flex-col gap-3 text-white bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl shadow-2xl">
+                    <h1 className="text-4xl font-bold tracking-tight flex flex-col md:flex-row items-center gap-3">
+                        <Globe className="h-10 w-10 animate-bounce" />
+                        Directorio de Recursos Ambientales
+                    </h1>
+                    <p className="text-lg opacity-90 text-center md:text-start"> Explora organizaciones, entidades y materiales educativos clave para la sostenibilidad en México y Morelos</p>
                 </div>
 
                 {directoryData.sections.map(section => (

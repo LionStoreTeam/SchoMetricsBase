@@ -11,8 +11,13 @@ import {
   uploadVideoThumbnailToS3,
 } from "@/lib/s3-service"; //
 import { UserType, VideoTopic } from "@prisma/client";
-import { MAX_SHORT_VIDEO_SIZE } from "@/types/types-s3-service"; //
+import {
+  bucketName,
+  MAX_SHORT_VIDEO_SIZE,
+  s3Client,
+} from "@/types/types-s3-service"; //
 import { optimizeImage } from "@/lib/image-compress-utils";
+import { CopyObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3";
 
 // Esquema para actualización, campos opcionales
 const updateShortVideoSchema = z
@@ -35,9 +40,13 @@ const updateShortVideoSchema = z
     videoSourceType: z.enum(["upload", "url", "keep"]).optional(), // 'keep' para no cambiar la fuente actual
     externalVideoUrl: z
       .string()
-      .url("URL externa inválida.")
-      .optional()
-      .nullable(),
+      .trim()
+      .transform((val) => (val === "" ? null : val))
+      .nullable()
+      .refine((val) => !val || /^https?:\/\//.test(val), {
+        message: "URL externa inválida.",
+      })
+      .optional(),
   })
   .superRefine((data, ctx) => {
     if (data.videoSourceType === "url" && !data.externalVideoUrl) {
@@ -106,8 +115,9 @@ export async function PUT(
   { params }: { params: { videoId: string } }
 ) {
   try {
-    const session = await getSession(); //
+    const session = await getSession();
     const { videoId } = params;
+
     const existingVideo = await prisma.shortVideo.findUnique({
       where: { id: videoId },
     });
@@ -117,6 +127,7 @@ export async function PUT(
         { error: "Video no encontrado" },
         { status: 404 }
       );
+
     if (
       !session ||
       session.id !== existingVideo.userId ||
@@ -156,6 +167,9 @@ export async function PUT(
       validationResult.data;
     const dataToUpdate: any = { ...textData };
 
+    // Título final
+    const finalTitle = dataToUpdate.title ?? existingVideo.title;
+
     const currentUser = await prisma.user.findUnique({
       where: { id: session.id as string },
       include: { profile: true },
@@ -168,11 +182,43 @@ export async function PUT(
       );
     }
 
+    // Si el título cambió, mover archivos existentes en S3
+    if (existingVideo.title !== finalTitle) {
+      const moveS3Object = async (oldKey: string | null) => {
+        if (!oldKey) return null;
+        const newKey = oldKey.replace(existingVideo.title, finalTitle);
+
+        await s3Client.send(
+          new CopyObjectCommand({
+            Bucket: bucketName,
+            CopySource: `${bucketName}/${oldKey}`,
+            Key: newKey,
+          })
+        );
+        await s3Client.send(
+          new DeleteObjectCommand({
+            Bucket: bucketName,
+            Key: oldKey,
+          })
+        );
+        return newKey;
+      };
+
+      const newVideoS3Key = await moveS3Object(existingVideo.videoS3Key);
+      const newThumbnailS3Key = await moveS3Object(
+        existingVideo.thumbnailS3Key
+      );
+
+      if (newVideoS3Key) dataToUpdate.videoS3Key = newVideoS3Key;
+      if (newThumbnailS3Key) dataToUpdate.thumbnailS3Key = newThumbnailS3Key;
+    }
+
+    // Manejar nuevo video subido
     if (videoSourceType === "upload" && newVideoFile) {
       const videoValidation = validateVideoFile(
         newVideoFile,
         MAX_SHORT_VIDEO_SIZE / (1024 * 1024)
-      ); //
+      );
       if (!videoValidation.valid)
         return NextResponse.json(
           { error: videoValidation.error },
@@ -180,34 +226,35 @@ export async function PUT(
         );
 
       if (existingVideo.videoS3Key)
-        await deleteFileFromS3(existingVideo.videoS3Key); //
-      if (existingVideo.externalVideoUrl) dataToUpdate.externalVideoUrl = null; // Clear external if uploading S3
+        await deleteFileFromS3(existingVideo.videoS3Key);
+      if (existingVideo.externalVideoUrl) dataToUpdate.externalVideoUrl = null;
 
       const videoS3Response = await uploadShortVideoFileToS3(
         newVideoFile,
         currentUser.userType,
         currentUser.matricula,
-        textData.title as string
-      ); //
+        finalTitle
+      );
       dataToUpdate.videoS3Key = videoS3Response.fileKey;
       dataToUpdate.externalVideoUrl = null;
     } else if (videoSourceType === "url" && externalVideoUrl) {
       if (existingVideo.videoS3Key)
-        await deleteFileFromS3(existingVideo.videoS3Key); //
+        await deleteFileFromS3(existingVideo.videoS3Key);
       dataToUpdate.videoS3Key = null;
       dataToUpdate.externalVideoUrl = externalVideoUrl;
     }
-    // Si videoSourceType es "keep" o no se proporciona, no se cambia la fuente del video principal.
 
+    // Manejar nueva miniatura
     if (newThumbnailFile) {
-      const thumbValidation = validateThumbnailFile(newThumbnailFile); //
+      const thumbValidation = validateThumbnailFile(newThumbnailFile);
       if (!thumbValidation.valid)
         return NextResponse.json(
           { error: thumbValidation.error },
           { status: 400 }
         );
+
       if (existingVideo.thumbnailS3Key)
-        await deleteFileFromS3(existingVideo.thumbnailS3Key); //
+        await deleteFileFromS3(existingVideo.thumbnailS3Key);
 
       const optimizedBuffer = await optimizeImage(newThumbnailFile);
 
@@ -217,14 +264,14 @@ export async function PUT(
         "image/jpeg",
         currentUser.userType,
         currentUser.matricula,
-        dataToUpdate.title as string
-      ); //
+        finalTitle
+      );
       dataToUpdate.thumbnailS3Key = thumbS3Response.fileKey;
     } else if (
       formData.get("deleteThumbnail") === "true" &&
       existingVideo.thumbnailS3Key
     ) {
-      await deleteFileFromS3(existingVideo.thumbnailS3Key); //
+      await deleteFileFromS3(existingVideo.thumbnailS3Key);
       dataToUpdate.thumbnailS3Key = null;
     }
 
@@ -239,16 +286,14 @@ export async function PUT(
         updatedShortVideo.externalVideoUrl ||
         (updatedShortVideo.videoS3Key
           ? getPublicS3Url(updatedShortVideo.videoS3Key)
-          : null), //
+          : null),
       thumbnailUrl: updatedShortVideo.thumbnailS3Key
         ? getPublicS3Url(updatedShortVideo.thumbnailS3Key)
-        : null, //
+        : null,
     });
   } catch (error) {
-    /* ... */ return NextResponse.json(
-      { error: "Error interno." },
-      { status: 500 }
-    );
+    console.error("Error al actualizar video:", error);
+    return NextResponse.json({ error: "Error interno." }, { status: 500 });
   }
 }
 

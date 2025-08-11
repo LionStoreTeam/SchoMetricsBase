@@ -20,7 +20,7 @@ const ResourceCard: React.FC<ResourceCardProps> = ({ resource, type = 'organizat
         <Card className="flex flex-col h-full shadow-lg hover:shadow-xl transition-shadow duration-300">
             <CardHeader className="pb-3">
                 <div className="flex items-start gap-3">
-                    {Icon && <Icon className="h-7 w-7 text-green-600 mt-1 shrink-0" />}
+                    {Icon && <Icon className="h-7 w-7 text-orange-600 mt-1 shrink-0" />}
                     <div className="flex-1">
                         <CardTitle className="text-lg font-semibold text-gray-800 leading-tight">{resource.name}</CardTitle>
                     </div>
@@ -55,7 +55,7 @@ const ResourceCard: React.FC<ResourceCardProps> = ({ resource, type = 'organizat
                         {contactInfo.alternativeLink && (
                             <span className="flex items-center gap-1.5 text-gray-600">
                                 <Info className="h-3.5 w-3.5 text-gray-500" />
-                                <LinkPreview url={contactInfo.alternativeLink} openInNewTab={true} className="text-green-600 hover:underline">
+                                <LinkPreview url={contactInfo.alternativeLink} openInNewTab={true} className="text-orange-600 hover:underline">
                                     Sitio alternativo
                                 </LinkPreview >
                             </span>
@@ -88,7 +88,7 @@ const ResourceCard: React.FC<ResourceCardProps> = ({ resource, type = 'organizat
             <CardFooter className="pt-3 mt-auto border-t">
                 {/* Verificación para link y sourceLink */}
                 {(resource.link || (type === 'media' && (resource as MediaResource).sourceLink)) && (
-                    <Button variant="ghost" size="sm" asChild className="w-full text-green-600 hover:bg-green-50 hover:text-green-700">
+                    <Button variant="ghost" size="sm" asChild className="w-full text-orange-600 hover:bg-orange-50 hover:text-orange-700">
                         <LinkPreview url={(resource.link || (resource as MediaResource).sourceLink)!} openInNewTab={true} >
                             Visitar Sitio <ExternalLink className="ml-2 h-4 w-4" />
                         </LinkPreview >

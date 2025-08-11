@@ -30,7 +30,16 @@ const shortVideoUpdateFormSchemaClient = z.object({
     authorInfo: z.string().max(500).optional().nullable(),
     duration: z.string().optional().nullable().refine(val => !val || /^\d+$/.test(val), "Duración en segundos.").transform(val => val || null),
     videoSourceType: z.enum(["upload", "url", "keep"]).optional(),
-    externalVideoUrl: z.string().url("URL externa inválida.").optional().nullable(),
+    externalVideoUrl: z
+        .string()
+        .trim()
+        .transform((val) => val === "" ? null : val)
+        .nullable()
+        .refine(
+            (val) => !val || /^https?:\/\//.test(val),
+            { message: "URL externa inválida." }
+        )
+        .optional(),
     videoFile: z.instanceof(File).optional().nullable(),
     thumbnailFile: z.instanceof(File).optional().nullable()
         .refine(file => !file || file.size <= MAX_THUMBNAIL_SIZE, `Miniatura max ${MAX_THUMBNAIL_SIZE / (1024 * 1024)}MB.`)
@@ -39,7 +48,7 @@ const shortVideoUpdateFormSchemaClient = z.object({
     if (data.videoSourceType === "upload" && !data.videoFile && !data.externalVideoUrl /* Si se está editando, puede que ya exista un video*/) {
         // Esta validación es más compleja en edición, ya que puede haber un video existente
     }
-    if (data.videoSourceType === "url" && (!data.externalVideoUrl || data.externalVideoUrl.trim() === "")) {
+    if (data.videoSourceType === "url" && !data.externalVideoUrl) {
         ctx.addIssue({ code: "custom", message: "URL externa requerida si se selecciona 'url'.", path: ["externalVideoUrl"] });
     }
     if (data.videoFile && data.videoFile.size > MAX_SHORT_VIDEO_SIZE) {
@@ -190,7 +199,9 @@ export default function EditShortVideoPage() {
         if (!validationResult.success) {
             const newErrors: ShortVideoUpdateFormErrors = {};
             validationResult.error.errors.forEach(err => { newErrors[err.path[0] as keyof ShortVideoUpdateFormClientData] = err.message; });
-            setErrors(newErrors); toast.error("Corrige los errores."); return;
+            setErrors(newErrors); toast.error("Corrige los errores.");
+            console.log(validationResult.error.errors);
+            return;
         }
         setIsSubmitting(true);
         const apiFormData = new FormData();
