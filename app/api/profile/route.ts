@@ -67,11 +67,8 @@ export async function GET(request: NextRequest) {
             id: user.profile.id,
             email: user.profile.email,
             bio: user.profile.bio,
-            address: user.profile.address,
             city: user.profile.city,
             state: user.profile.state,
-            zipCode: user.profile.zipCode,
-            phone: user.profile.phone,
             avatarUrl: user.profile.avatarUrl, // Esta es la fileKey
             publicAvatarDisplayUrl: publicAvatarDisplayUrl, // URL pública para el frontend
             badges: user.profile.badges || [],
@@ -191,21 +188,15 @@ export async function PUT(request: NextRequest) {
             create: {
               email,
               bio,
-              address,
               city,
               state,
-              zipCode,
-              phone,
               avatarUrl: newAvatarFileKey, // Guardar la fileKey
             },
             update: {
               email,
               bio,
-              address,
               city,
               state,
-              zipCode,
-              phone,
               avatarUrl: newAvatarFileKey, // Guardar la fileKey
             },
           },
@@ -243,11 +234,8 @@ export async function PUT(request: NextRequest) {
             id: updatedUser.profile.id,
             email: updatedUser.profile.email,
             bio: updatedUser.profile.bio,
-            address: updatedUser.profile.address,
             city: updatedUser.profile.city,
             state: updatedUser.profile.state,
-            zipCode: updatedUser.profile.zipCode,
-            phone: updatedUser.profile.phone,
             avatarUrl: updatedUser.profile.avatarUrl, // fileKey
             publicAvatarDisplayUrl: publicAvatarDisplayUrl, // URL pública para el frontend
             badges: updatedUser.profile.badges || [],

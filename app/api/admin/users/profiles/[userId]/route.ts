@@ -63,11 +63,8 @@ export async function GET(
             id: findUser.profile.id,
             email: findUser.profile.email,
             bio: findUser.profile.bio,
-            address: findUser.profile.address,
             city: findUser.profile.city,
             state: findUser.profile.state,
-            zipCode: findUser.profile.zipCode,
-            phone: findUser.profile.phone,
             avatarUrl: findUser.profile.avatarUrl, // Esta es la fileKey
             publicAvatarDisplayUrl: publicAvatarDisplayUrl, // URL pública para el frontend
             badges: findUser.profile.badges || [],
@@ -210,21 +207,15 @@ export async function PUT(
             create: {
               email,
               bio,
-              address,
               city,
               state,
-              zipCode,
-              phone,
               avatarUrl: newAvatarFileKey, // Guardar la fileKey
             },
             update: {
               email,
               bio,
-              address,
               city,
               state,
-              zipCode,
-              phone,
               avatarUrl: newAvatarFileKey, // Guardar la fileKey
             },
           },
@@ -262,11 +253,8 @@ export async function PUT(
             id: updatedUser.profile.id,
             email: updatedUser.profile.email,
             bio: updatedUser.profile.bio,
-            address: updatedUser.profile.address,
             city: updatedUser.profile.city,
             state: updatedUser.profile.state,
-            zipCode: updatedUser.profile.zipCode,
-            phone: updatedUser.profile.phone,
             avatarUrl: updatedUser.profile.avatarUrl, // fileKey
             publicAvatarDisplayUrl: publicAvatarDisplayUrl, // URL pública para el frontend
             badges: updatedUser.profile.badges || [],

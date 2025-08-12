@@ -69,11 +69,8 @@ model Profile {
   id        String  @id @default(cuid())
   email     String  @unique
   bio       String?
-  address   String?
   city      String?
   state     String?
-  zipCode   String?
-  phone     String?
   avatarUrl String? // Save the filekey of S3 for the avatar user
 
   // ====== Relations ======= //

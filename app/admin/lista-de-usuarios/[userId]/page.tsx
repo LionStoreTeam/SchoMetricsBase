@@ -53,11 +53,8 @@ export default function ProfilePage() {
         email: "",
         points: 0,
         bio: "",
-        address: "",
         city: "",
         state: "",
-        zipCode: "",
-        phone: "",
     });
     const [stats, setStats] = useState<UserStats>({
         totalPoints: 0,
@@ -88,11 +85,8 @@ export default function ProfilePage() {
                 email: data.profile?.email || "",
                 points: data.points || 0,
                 bio: data.profile?.bio || "",
-                address: data.profile?.address || "",
                 city: data.profile?.city || "",
                 state: data.profile?.state || "",
-                zipCode: data.profile?.zipCode || "",
-                phone: data.profile?.phone || "",
             });
             setAvatarPreviewUrl(null);
             setSelectedAvatarFile(null);
@@ -181,11 +175,8 @@ export default function ProfilePage() {
         payload.append("points", formData.points.toString()); // Aquí se está generando el error
         payload.append("email", formData.email);
         payload.append("bio", formData.bio);
-        payload.append("address", formData.address);
         payload.append("city", formData.city);
         payload.append("state", formData.state);
-        payload.append("zipCode", formData.zipCode);
-        payload.append("phone", formData.phone);
         if (selectedAvatarFile) payload.append("avatarFile", selectedAvatarFile);
 
         try {
@@ -203,11 +194,8 @@ export default function ProfilePage() {
                 email: updatedProfile.profile?.email || "",
                 points: updatedProfile.points || 0,
                 bio: updatedProfile.profile?.bio || "",
-                address: updatedProfile.profile?.address || "",
                 city: updatedProfile.profile?.city || "",
                 state: updatedProfile.profile?.state || "",
-                zipCode: updatedProfile.profile?.zipCode || "",
-                phone: updatedProfile.profile?.phone || "",
             });
             setSelectedAvatarFile(null); setAvatarPreviewUrl(null);
             if (fileInputRef.current) fileInputRef.current.value = "";
@@ -259,9 +247,8 @@ export default function ProfilePage() {
                 matricula: user.matricula || "",
                 email: user.profile?.email || "",
                 points: user.points || 0,
-                bio: user.profile?.bio || "", address: user.profile?.address || "",
+                bio: user.profile?.bio || "",
                 city: user.profile?.city || "", state: user.profile?.state || "",
-                zipCode: user.profile?.zipCode || "", phone: user.profile?.phone || "",
             });
         }
         setSelectedAvatarFile(null); setAvatarPreviewUrl(null);
@@ -616,10 +603,7 @@ export default function ProfilePage() {
                                                     <Textarea id="bio" name="bio" value={formData.bio} onChange={handleChange} rows={3} disabled={isSubmitting} />
                                                 </div>
                                                 <div className="grid gap-4 md:grid-cols-2">
-                                                    <div className="grid gap-2">
-                                                        <Label htmlFor="address" className="text-sm font-medium">Dirección</Label>
-                                                        <Input id="address" name="address" value={formData.address} onChange={handleChange} disabled={isSubmitting} />
-                                                    </div>
+
                                                     <div className="grid gap-2">
                                                         <Label htmlFor="city" className="text-sm font-medium">Ciudad</Label>
                                                         <Input id="city" name="city" value={formData.city} onChange={handleChange} disabled={isSubmitting} />
@@ -630,14 +614,7 @@ export default function ProfilePage() {
                                                         <Label htmlFor="state" className="text-sm font-medium">Estado</Label>
                                                         <Input id="state" name="state" value={formData.state} onChange={handleChange} disabled={isSubmitting} />
                                                     </div>
-                                                    <div className="grid gap-2">
-                                                        <Label htmlFor="zipCode" className="text-sm font-medium">Código Postal</Label>
-                                                        <Input id="zipCode" name="zipCode" value={formData.zipCode} onChange={handleChange} disabled={isSubmitting} />
-                                                    </div>
-                                                </div>
-                                                <div className="grid gap-2">
-                                                    <Label htmlFor="phone" className="text-sm font-medium">Teléfono</Label>
-                                                    <Input id="phone" name="phone" value={formData.phone} onChange={handleChange} disabled={isSubmitting} />
+
                                                 </div>
                                             </>
                                         ) : (
@@ -678,23 +655,16 @@ export default function ProfilePage() {
                                                 )}
                                                 <div className="pt-2">
                                                     <h3 className="font-medium mb-2 text-sky-500">
-                                                        Info. Contacto
+                                                        Ciudad y Estado
                                                     </h3>
-                                                    <div className="grid gap-4 md:grid-cols-2">{user.profile?.address && (
+                                                    <div className="grid gap-4 md:grid-cols-2">{(
                                                         <div className="flex items-start gap-2">
-                                                            <MapPin className="h-4 w-4 text-muted-foreground mt-0.5" />
-                                                            <div>
-                                                                <p>{user.profile.address}</p>
-                                                                <p>{user.profile.city}, {user.profile.state} {user.profile.zipCode}</p>
+                                                            <div className="text-muted-foreground">
+                                                                <p>{user.profile?.city} </p>
+                                                                <p>{user.profile?.state} </p>
                                                             </div>
                                                         </div>
                                                     )}
-                                                        {user.profile?.phone && (
-                                                            <div className="flex items-center gap-2">
-                                                                <Phone className="h-4 w-4 text-muted-foreground" />
-                                                                <p>{user.profile.phone}</p>
-                                                            </div>
-                                                        )}
                                                     </div>
                                                 </div>
                                             </>
