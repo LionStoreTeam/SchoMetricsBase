@@ -243,6 +243,15 @@ export async function POST(request: NextRequest) {
 
     const evidenceResults = await Promise.all(evidenceUploadPromises);
 
+    if (evidenceResults.length !== files.length) {
+      return NextResponse.json(
+        { error: "Error al subir archivos de evidencia" },
+        { status: 500 }
+      );
+    }
+
+    // Crear la actividad
+    let imageCounter = 1;
     const activity = await prisma.activity.create({
       data: {
         title,
@@ -258,7 +267,7 @@ export async function POST(request: NextRequest) {
           create: evidenceResults.map((e) => ({
             fileUrl: e.fileKey,
             fileType: e.determinedType,
-            fileName: e.originalFileName,
+            fileName: `${title} - Image: ${imageCounter++}`,
             fileSize: e.fileSize,
             format: e.format,
           })),

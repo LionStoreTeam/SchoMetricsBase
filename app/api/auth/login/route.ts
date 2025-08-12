@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
       httpOnly: true,
       path: "/",
       secure: process.env.NODE_ENV === "production",
-      maxAge: 60 * 60 * 24, // 1 day
+      // maxAge: 60 * 60 * 24, // 1 day => Esta es una cookie definina por lo tanto aun que se cierre el navegador la sesión permanecerá activa hasta que expire
     });
 
     // Return response without password

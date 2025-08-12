@@ -5,7 +5,6 @@ import { TypeAnimation } from 'react-type-animation';
 import Image from "next/image"
 import { motion } from "motion/react"
 import LoginButton from "./components/LogInButton";
-import { Globe } from "./components/Globe";
 import { DynamicCounters } from "./components/home/DynamicCounters";
 import GlobalMetricsSchool from "./components/home/GlobalMetricsSchool";
 import { TimelineSchoMetrics } from "./components/home/TimeLineSchoMetrics";
@@ -89,7 +88,6 @@ export default function Home() {
           </section>
           {/* TimeLine Demo */}
           <TimelineSchoMetrics />
-          <Globe />
         </motion.span>
       </main>
       <footer className="border-t py-6 md:py-0">

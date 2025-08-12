@@ -1,9 +1,10 @@
 import { ActivityForAdmin } from "@/types/types";
-import { Film, ImageOff } from "lucide-react";
+import { Film, ImageOff, X } from "lucide-react";
 import { motion } from "motion/react";
 import Image from "next/image";
 import { useState } from "react";
 import { ZoomableImage } from "./ZoomableImage";
+import { Button } from "@/components/ui/button";
 
 
 
@@ -133,6 +134,16 @@ export const EvidenceThumbnailsAdmin = ({ evidence }: { evidence: ActivityForAdm
                                 />
                             )}
                         </motion.div>
+                        <Button
+                            variant="outline"
+                            onClick={
+                                handleCloseModal
+                            }
+                            className="absolute top-0 mt-3 bg-teal-400 text-white border-none"
+                        >
+                            <X className="h-5 w-5 font-bold" />
+                            Cerrar
+                        </Button>
                     </motion.div>
                 )}
             </div>

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { PlusCircle, Search, Filter, Loader2, ImageOff, CheckCircle, Clock, Film, BadgeInfo } from "lucide-react"
+import { PlusCircle, Search, Filter, Loader2, ImageOff, CheckCircle, Clock, Film, BadgeInfo, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -141,6 +141,16 @@ export const EvidenceThumbnails = ({ evidence }: { evidence: ActivityType["evide
                                 />
                             )}
                         </motion.div>
+                        <Button
+                            variant="outline"
+                            onClick={
+                                handleCloseModal
+                            }
+                            className="absolute top-0 mt-3 bg-teal-400 text-white border-none"
+                        >
+                            <X className="h-5 w-5 font-bold" />
+                            Cerrar
+                        </Button>
                     </motion.div>
                 )}
             </div>

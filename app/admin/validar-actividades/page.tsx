@@ -341,6 +341,11 @@ export default function AdminActivitiesManagementPage() {
         return items;
     };
 
+    // Añadir aquí la funcionalidad para refrescar y actualizar los datos de la Tabla
+    const handleRefresh = () => {
+        toast.success("Tabla actualizada con los últimos datos.");
+        fetchAdminActivities(currentPage, searchTerm, userTypeFilter, activityStatusFilter);
+    };
     return (
         <div className="flex flex-col gap-8 m-5 sm:m-10">
             <div className="lg:mt-0 p-6 flex flex-col gap-2 justify-center items-center lg:flex-row lg:justify-between text-white bg-gradient-to-r from-indigo-600 to-purple-700 rounded-xl shadow-lg">
@@ -384,7 +389,14 @@ export default function AdminActivitiesManagementPage() {
                                 </SelectContent>
                             </Select>
                         </div>
-                        <Button type="submit" className="bg-indigo-600 hover:bg-indigo-700 text-white py-2 text-sm w-full lg:w-auto">Buscar Actividades</Button>
+                        {/* Integrar funcionalidad para refrescar datos y Actualizar Tabla */}
+                        <Button
+                            type="button"
+                            onClick={handleRefresh}
+                            className="bg-indigo-600 hover:bg-indigo-700 text-white py-2 text-sm w-full lg:w-auto flex items-center justify-center gap-2"
+                        >
+                            Actualizar Tabla
+                        </Button>
                     </form>
                 </CardHeader>
                 <CardContent>

@@ -211,14 +211,14 @@ export default function VisualMaterialDetailPage() {
     return (
         <DashboardLayout>
             <FloatingNavEducation />
-            <div className="container mx-auto px-2 sm:px-4 py-8 max-w-4xl mt-10 lg:mt-0">
+            <div className="flex flex-col gap-8 m-5">
                 <div className="mb-6 mt-10 md:mt-2">
                     <Link href="/educacion/visual/" className="text-sm text-purple-600 hover:underline flex items-center">
                         <ArrowLeft className="h-4 w-4 mr-1" /> Volver a Material Visual
                     </Link>
                 </div>
 
-                <Card className="shadow-lg overflow-hidden">
+                <Card className="shadow-lg overflow">
                     <CardHeader className="p-6">
                         <Badge variant="outline" className="mb-2 text-xs self-start text-purple-700 border-purple-300 bg-purple-50">
                             <Tag className="h-3 w-3 mr-1" /> {topicDisplayName(material.topic)}
@@ -245,7 +245,7 @@ export default function VisualMaterialDetailPage() {
                         )}
                     </CardHeader>
 
-                    <CardContent className="px-6 py-4">
+                    <CardContent className="">
                         {material.description && (
                             <div className="mb-6 prose prose-sm sm:prose-base max-w-none text-gray-700 break-words whitespace-pre-line">
                                 <h3 className="font-semibold text-gray-800 text-lg mb-1">Descripción:</h3>

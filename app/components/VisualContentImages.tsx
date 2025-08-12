@@ -1,9 +1,10 @@
 import { type VisualMaterialItem as VisualMaterialItemType } from "@/types/types";
-import { ImageOff } from "lucide-react";
+import { ImageOff, X } from "lucide-react";
 import { motion } from "motion/react";
 import Image from "next/legacy/image";
 import { useState } from "react";
 import { ZoomableImage } from "./ZoomableImage";
+import { Button } from "@/components/ui/button";
 
 export const VisualContentImages = ({ visualContent }: { visualContent: VisualMaterialItemType["images"] }) => {
     const [showAll, setShowAll] = useState(false);
@@ -34,7 +35,7 @@ export const VisualContentImages = ({ visualContent }: { visualContent: VisualMa
                         key={ev.id}
                         whileHover={{ scale: 1.1 }}
                         transition={{ duration: 0.2 }}
-                        className="relative w-64 h-64 rounded-md overflow-hidden shadow-sm cursor-pointer bg-gray-100 lg:w-52 lg:h-52"
+                        className="relative w-24 h-24 rounded-md overflow-hidden shadow-sm cursor-pointer bg-gray-100 xl:w-48 xl:h-48"
                         onClick={() => {
                             // Asegurarse de que publicDisplayUrl exista y sea una imagen
                             if (ev.url) {
@@ -68,17 +69,6 @@ export const VisualContentImages = ({ visualContent }: { visualContent: VisualMa
                         )}
                     </motion.div>
                 ))}
-                {validVisualContentImages.length > 3 && !showAll && (
-                    <button onClick={() => setShowAll(true)} className="text-xs text-blue-500 hover:underline self-end">
-                        Ver más ({validVisualContentImages.length - 3})
-                    </button>
-                )}
-                {validVisualContentImages.length > 3 && showAll && (
-                    <button onClick={() => setShowAll(false)} className="text-xs text-blue-500 hover:underline self-end">
-                        Ver menos
-                    </button>
-                )}
-
                 {selectedMedia && (
                     <motion.div
                         initial={{ opacity: 0 }}
@@ -99,6 +89,16 @@ export const VisualContentImages = ({ visualContent }: { visualContent: VisualMa
                                 <ZoomableImage src={selectedMedia} alt="Evidencia ampliada" />
                             )}
                         </motion.div>
+                        <Button
+                            variant="outline"
+                            onClick={
+                                handleCloseModal
+                            }
+                            className="absolute top-0 mt-3 bg-teal-400 text-white border-none"
+                        >
+                            <X className="h-5 w-5 font-bold" />
+                            Cerrar
+                        </Button>
                     </motion.div>
                 )}
             </div>
