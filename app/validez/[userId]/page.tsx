@@ -14,8 +14,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
-// import ListaDeRecompensas from "../../components/ListaDeRecompensas";
 import SchoMetricsLoader from "@/app/components/SchoMetricsLoader";
+import ListaDeRecompensas from "../components/ListaDeRecompensas";
 
 const ValidezPage = () => {
     const params = useParams();
@@ -37,7 +37,7 @@ const ValidezPage = () => {
             }
             const data: UserProfileData = await response.json();
             setUser(data);
-            console.log("Usuario cargado:", data);
+            // console.log("Usuario cargado:", data);
         } catch (err) {
             console.error("Error cargando usuario:", err);
             setError(err instanceof Error ? err.message : "Ocurrió un error desconocido.");
@@ -124,7 +124,7 @@ const ValidezPage = () => {
                                 <div className="space-y-3">
                                     <div>
                                         <label className="text-sm font-medium text-gray-500">Nombre Completo</label>
-                                        <p className="text-lg font-medium text-gray-900">{user?.name.toUpperCase()}</p>
+                                        <p className="text-lg font-medium text-gray-900 uppercase">{user?.name}</p>
                                     </div>
 
                                     <div>
@@ -184,17 +184,19 @@ const ValidezPage = () => {
                                                 <div className="flex items-center text-center gap-2 md:flex-row text-slate-500">
                                                     Insignias: {" "}
                                                 </div>
-                                                {user.profile.badges.map((badge) => (
-                                                    <Badge
-                                                        key={badge.id}
-                                                        variant="outline"
-                                                        className="flex items-center gap-1 px-2 py-1 bg-green-50 text-green-800"
-                                                    >
-                                                        {/* Asumiendo que badge.imageUrl es una URL completa y pública */}
-                                                        <img src={badge.imageUrl || ""} alt={badge.name} className="h-4 w-4" />
-                                                        {badge.name}
-                                                    </Badge>
-                                                ))}
+                                                <div className="h-[100px] overflow-auto flex flex-col gap-3">
+                                                    {user.profile.badges.map((badge) => (
+                                                        <Badge
+                                                            key={badge.id}
+                                                            variant="outline"
+                                                            className="flex items-center gap-4 px-2 py-1 bg-amber-50 text-amber-600 border-none"
+                                                        >
+                                                            {/* Asumiendo que badge.imageUrl es una URL completa y pública */}
+                                                            <img src={badge.imageUrl || ""} alt={badge.name} className="h-4 w-4" />
+                                                            {badge.name}
+                                                        </Badge>
+                                                    ))}
+                                                </div>
                                             </div>
                                         ) : (
                                             <div className="flex flex-col justify-center items-start gap-2 md:flex-row text-slate-500">
@@ -213,7 +215,7 @@ const ValidezPage = () => {
                         </div>
 
                         <Separator className="my-6" />
-                        {/* <ListaDeRecompensas userId={user?.id as string} /> */}
+                        <ListaDeRecompensas userId={user?.id as string} />
 
 
                         <Separator className="my-6" />
