@@ -244,11 +244,23 @@ export default function ScoresPage() {
                         <div className="relative flex-1">
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                             <Input
-                                type="search"
+                                type="text"
+                                inputMode="numeric"
+                                pattern="[0-9]*"
                                 placeholder="Buscar por Matricula"
                                 className="pl-10 py-2 text-base"
                                 value={searchTerm}
-                                onChange={handleSearchChange}
+                                onChange={(e) => {
+                                    const value = e.target.value;
+                                    if (/^\d*$/.test(value)) {
+                                        setSearchTerm(value);
+                                    }
+                                }}
+                                onKeyDown={(e) => {
+                                    if (!/[0-9]/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Delete') {
+                                        e.preventDefault();
+                                    }
+                                }}
                             />
                         </div>
                         <Select value={userTypeFilter} onValueChange={handleUserTypeChange}>

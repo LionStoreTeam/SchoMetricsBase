@@ -16,13 +16,13 @@ export default function AvisosSchoMetrics() {
                     </h1>
                     <p className="text-lg opacity-90 text-center md:text-start">Visualiza tus Notificaciones y los Avisos de SchoMetrics</p>
                 </div>
-                <div className="my-5 p-10 h-[500px] overflow-auto bg-white shadow-md rounded-xl border-2 border-green-100">
+                <div className="my-5 p-3 xl:p-10 h-[700px] overflow-auto bg-white shadow-md rounded-xl border-2 border-green-100">
                     <div className="text-center mb-8">
                         <div className="flex flex-col items-center justify-center gap-3 mb-4 md:flex-row">
-                            <div className="p-3 bg-green-500 rounded-full">
+                            <div className="p-3 bg-gradient-to-br from-blue-700 to-violet-800 rounded-full">
                                 <Bell className="w-6 h-6 text-white" />
                             </div>
-                            <h2 className="text-3xl font-bold bg-gradient-to-r from-green-600 to-green-500 bg-clip-text text-transparent">
+                            <h2 className="text-3xl font-bold bg-gradient-to-br from-blue-700 to-violet-800 bg-clip-text text-transparent">
                                 Mis Notificaciones
                             </h2>
                         </div>

@@ -6,8 +6,8 @@ import ScrollToTopButton from "./components/ScrollToTopButton";
 
 
 export const metadata: Metadata = {
-  title: "SchoMetrics Ambiental",
-  description: "SchoMetrics Ambiental",
+  title: "SchoMetrics",
+  description: "SchoMetrics Plataforma Ambiental",
 };
 
 export default function RootLayout({

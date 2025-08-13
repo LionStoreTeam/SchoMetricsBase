@@ -365,7 +365,27 @@ export default function AdminActivitiesManagementPage() {
                         <div className="relative md:col-span-1 lg:col-span-1">
                             <Label htmlFor="search-term-admin-act" className="sr-only">Buscar</Label>
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                            <Input id="search-term-admin-act" type="number" placeholder="Buscar Matricula" className="pl-9 py-2 text-sm" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+                            {/* <Input id="search-term-admin-act" type="number" placeholder="Buscar Matricula" className="pl-9 py-2 text-sm" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} /> */}
+                            <Input
+                                id="search-term-admin-act"
+                                type="text"
+                                inputMode="numeric"
+                                pattern="[0-9]*"
+                                placeholder="Buscar Matrícula"
+                                className="pl-9 py-2 text-sm"
+                                value={searchTerm}
+                                onChange={(e) => {
+                                    const value = e.target.value;
+                                    if (/^\d*$/.test(value)) {
+                                        setSearchTerm(value);
+                                    }
+                                }}
+                                onKeyDown={(e) => {
+                                    if (!/[0-9]/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Delete') {
+                                        e.preventDefault();
+                                    }
+                                }}
+                            />
                         </div>
                         <div>
                             <Label htmlFor="user-type-filter-admin-act" className="sr-only">Tipo de Usuario</Label>

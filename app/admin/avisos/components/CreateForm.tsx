@@ -17,8 +17,8 @@ import z from 'zod';
 
 // Esquema de validación Zod para el frontend
 const announcementFormSchema = z.object({
-    title: z.string().max(100, "Máximo 100 caracteres."),
-    content: z.string().max(2000, "Máximo 2000 caracteres."),
+    title: z.string().min(5, "El título debe tener al menos 5 caracteres.").max(150, "Máximo 150 caracteres."),
+    content: z.string().min(50, "El contenido debe tener al menos 50 caracteres.").max(2000, "Máximo 2000 caracteres."),
     topic: z.nativeEnum(AnnouncementTopic, { errorMap: () => ({ message: "Selecciona un tema válido." }) }),
 });
 
@@ -139,7 +139,7 @@ export function CreateAnnouncementForm() {
                     <CardContent className="space-y-6">
                         {/* Título */}
                         <div className="space-y-1">
-                            <Label htmlFor="title">Título del Aviso <span className="text-lime-500">*</span></Label>
+                            <Label htmlFor="title">Título del Aviso <span className="text-red-500">*</span></Label>
                             <Input
                                 id="title"
                                 name="title"
@@ -147,28 +147,27 @@ export function CreateAnnouncementForm() {
                                 onChange={handleInputChange}
                                 placeholder="Aviso importante para los estudiantes de la plataforma"
                                 disabled={isLoading}
-                                className={""} />
-                            {errors.title && <p className="text-sm text-lime-500">{errors.title}</p>}
+                                className={errors.title ? "border-red-500" : ""} />
+                            {errors.title && <p className="text-sm text-red-500">{errors.title}</p>}
                         </div>
 
                         {/* Contenido (Textarea) */}
                         <div className="space-y-1">
-                            <Label htmlFor="content">Contenido del Aviso <span className="text-lime-500">*</span></Label>
+                            <Label htmlFor="content">Contenido del Aviso <span className="text-red-500">*</span></Label>
                             <Textarea
                                 id="content"
                                 name="content"
                                 value={formData.content}
                                 onChange={handleInputChange}
                                 placeholder="Escribe aquí el contenido detallado del aviso"
-                                rows={10}
                                 disabled={isLoading}
-                                className={""} />
-                            {errors.content && <p className="text-sm text-lime-500">{errors.content}</p>}
+                                className={errors.content ? "border-red-500" : ""} />
+                            {errors.content && <p className="text-sm text-red-500">{errors.content}</p>}
                         </div>
 
                         {/* Tema */}
                         <div className="space-y-1 w-min">
-                            <Label htmlFor="topic">Tema Principal <span className="text-lime-500">*</span></Label>
+                            <Label htmlFor="topic">Tema Principal <span className="text-red-500">*</span></Label>
                             <Select
                                 value={formData.topic}
                                 onValueChange={handleTopicChange}
@@ -204,7 +203,7 @@ export function CreateAnnouncementForm() {
                             </Button>
                             <Button
                                 type="submit"
-                                className="bg-lime-500 hover:bg-lime-600"
+                                className="bg-lime-600 hover:bg-lime-700"
                                 disabled={isLoading}
                             >
                                 {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}

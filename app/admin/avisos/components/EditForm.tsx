@@ -18,8 +18,8 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 
 // Esquema de validación Zod para el frontend
 const announcementFormSchema = z.object({
-    title: z.string().max(100, "Máximo 100 caracteres."),
-    content: z.string().max(2000, "Máximo 2000 caracteres."),
+    title: z.string().min(5, "El título debe tener al menos 5 caracteres.").max(150, "Máximo 150 caracteres."),
+    content: z.string().min(50, "El contenido debe tener al menos 50 caracteres.").max(2000, "Máximo 2000 caracteres."),
     topic: z.nativeEnum(AnnouncementTopic, { errorMap: () => ({ message: "Selecciona un tema válido." }) }),
 });
 
@@ -72,6 +72,20 @@ export function EditAnnouncementForm({ announcement }: { announcement: Announcem
         topic: AnnouncementTopic;
         userId: string;
     }
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+        if (errors[name as keyof AnnouncementFormErrors]) {
+            setErrors(prev => ({ ...prev, [name]: undefined }));
+        }
+    };
+
+    const handleTopicChange = (value: string) => {
+        setFormData(prev => ({ ...prev, topic: value as AnnouncementTopic }));
+        if (errors.topic) {
+            setErrors(prev => ({ ...prev, topic: undefined }));
+        }
+    };
 
     // Manejar la actualización
     const handleUpdate = async (event: FormEvent<HTMLFormElement>) => {
@@ -81,6 +95,26 @@ export function EditAnnouncementForm({ announcement }: { announcement: Announcem
 
         const formData = new FormData(event.currentTarget);
         const data = Object.fromEntries(formData.entries());
+
+        const dataToValidate: AnnouncementFormData = {
+            ...formData,
+            title: "", // URL de S3 o la manual
+            content: "", // Asegurar null si está vacío
+            topic: AnnouncementTopic.AVISO_GENERAL, // Valor por defecto
+        };
+
+        const validationResult = announcementFormSchema.safeParse(dataToValidate);
+
+        if (!validationResult.success) {
+            const newErrors: AnnouncementFormErrors = {};
+            validationResult.error.errors.forEach(err => {
+                newErrors[err.path[0] as keyof AnnouncementFormData] = err.message;
+            });
+            setErrors(newErrors);
+            toast.error("Por favor, corrige los errores en el formulario.");
+            setIsLoading(false);
+            return;
+        }
 
         try {
             const response = await fetch(`/api/admin/announcements/${announcement.id}`, {
@@ -157,20 +191,7 @@ export function EditAnnouncementForm({ announcement }: { announcement: Announcem
     }
 
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
-        if (errors[name as keyof AnnouncementFormErrors]) {
-            setErrors(prev => ({ ...prev, [name]: undefined }));
-        }
-    };
 
-    const handleTopicChange = (value: string) => {
-        setFormData(prev => ({ ...prev, topic: value as AnnouncementTopic }));
-        if (errors.topic) {
-            setErrors(prev => ({ ...prev, topic: undefined }));
-        }
-    };
 
     const canEditOrDelete = session && session.id && (session.userType === UserType.ADMIN);
 
@@ -228,10 +249,9 @@ export function EditAnnouncementForm({ announcement }: { announcement: Announcem
                                 name="title"
                                 value={formData.title || ""}
                                 onChange={handleInputChange}
-                                required
-                                placeholder="Ej: 10 Formas Sencillas de Reducir tu Huella de Carbono"
+                                placeholder="Ej: Aviso importante para los estudiantes de la plataforma"
                                 disabled={isLoading}
-                                className={""} />
+                                className={errors.title ? "border-red-500" : ""} />
                             {errors.title && <p className="text-sm text-red-500">{errors.title}</p>}
                         </div>
 
@@ -243,10 +263,9 @@ export function EditAnnouncementForm({ announcement }: { announcement: Announcem
                                 name="content"
                                 value={formData.content || ""}
                                 onChange={handleInputChange}
-                                placeholder="Escribe aquí el contenido detallado de tu artículo o guía..."
-                                rows={10}
+                                placeholder="Escribe aquí el contenido detallado de tu aviso..."
                                 disabled={isLoading}
-                                className={""} />
+                                className={errors.content ? "border-red-500" : ""} />
                             {errors.content && <p className="text-sm text-red-500">{errors.content}</p>}
                         </div>
 
