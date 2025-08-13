@@ -128,7 +128,7 @@ export default function Inicio() {
 
     return (
         <DashboardLayout>
-            <div className="mt-24 md:mt-6 w-full bg-white rounded-xl shadow-md">
+            <div className="mt-24 md:mt-20 lg:mt-8 w-full bg-white rounded-xl shadow-md">
                 <div className="pt-5 flex justify-end items-center gap-4 bg-white rounded-xl w-full px-4 py-2">
                     <div className="flex gap-2 justify-center items-center">
                         <Image src="/logo.png" alt="logo" width={30} height={30} priority objectFit="contain" />

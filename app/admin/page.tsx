@@ -4,7 +4,7 @@ import type React from "react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link"; // Importar Link
-import { Loader2, Building, PlusCircle, Gift, LandPlot, UserCog2, MonitorCheck, UserCheck2, Eye, Megaphone, UserRoundX, ArrowRightLeftIcon, UserCog, DoorOpen } from "lucide-react"; // Añadir Building y PlusCircle
+import { Loader2, Building, PlusCircle, Gift, LandPlot, UserCog2, MonitorCheck, UserCheck2, Eye, Megaphone, UserRoundX, ArrowRightLeftIcon, UserCog, DoorOpen, Settings2 } from "lucide-react"; // Añadir Building y PlusCircle
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import toast from 'react-hot-toast';
@@ -66,27 +66,29 @@ export default function AdminPage() {
 
     return (
         <div className="p-4 flex flex-col gap-8 m-5 sm:m-10">
-            <div className="mt-10 lg:mt-0 p-6 flex flex-col justify-between items-center gap-2 text-white bg-gradient-to-r from-rose-600 to-red-700 rounded-xl shadow-lg lg:flex-row">
-                <div className="">
-                    <h1 className="text-3xl font-bold tracking-wide">Panel de Administración</h1>
-                    <p className="text-slate-100 tracking-wider">Gestiona los recursos de SchoMetrics.</p>
-                </div>
+            <div className="mt-16 lg:mt-0 p-8 flex flex-col gap-3 text-white bg-gradient-to-br from-rose-700 via-red-500 to-red-700 rounded-xl shadow-2xl">
+                <h1 className="text-3xl text-center font-bold tracking-tight flex flex-col md:flex-row items-center gap-3">
+                    <Settings2 className="h-10 w-10 animate-bounce" />
+                    Panel de Administración
+                </h1>
+                <p className="text-lg opacity-90 text-center md:text-start">Gestiona los recursos de SchoMetrics</p>
+            </div>
+            <div className="w-full flex justify-end items-center">
                 <Button
-                    className="p-2 bg-white mt-5 md:mt-0 hover:bg-slate-100 text-rose-800 font-bold"
+                    className="p-2 bg-white mt-5 md:mt-0 hover:bg-red-500 hover:text-white text-rose-600 font-bold shadow-lg border-2 border-red-500"
                     onClick={handleLogout}
                 >
                     <DoorOpen className="h-7 w-7" />
                     Cerrar Sesión
                 </Button>
             </div>
-
             <div className="flex flex-col justify-center items-center gap-5">
                 {/* Tarjeta para Navegar a "Crear Nuevo Usuario STUDENT-TEACHER" */}
                 <Card className="shadow-lg flex flex-col justify-between items-center w-full lg:w-[700px] transition-all ease-linear duration-500 border-4 border-slate-50 rounded-xl hover:border-blue-200">
                     <CardHeader>
                         <div className="flex flex-col justify-center items-center gap-2 md:flex-row md:items-center md:justify-center">
                             <UserCheck2 className="h-6 w-6 text-[#2e86c1]" />
-                            <CardTitle>Crear NUEVA cuenta de Usuario <span className="text-[#2e86c1]">(ESTUDIANTE / DOCENTE)</span></CardTitle>
+                            <CardTitle className="text-center">Crear NUEVA cuenta de Usuario <span className="text-[#2e86c1]">(ESTUDIANTE / DOCENTE)</span></CardTitle>
                         </div>
                         <CardDescription className="pt-3 text-center">
                             Crea un nuevo usuario en la plataforma.
@@ -112,7 +114,7 @@ export default function AdminPage() {
                     <CardHeader>
                         <div className="flex flex-col justify-center items-center gap-2 md:flex-row md:items-center md:justify-center">
                             <UserCog2 className="h-6 w-6 text-[#2e86c1]" />
-                            <CardTitle>Crear NUEVA cuenta de Usuario <span className="text-[#2e86c1]">(ADMINISTRADOR)</span></CardTitle>
+                            <CardTitle className="text-center">Crear NUEVA cuenta de Usuario <span className="text-[#2e86c1]">(ADMINISTRADOR)</span></CardTitle>
                         </div>
                         <CardDescription className="pt-3 text-center">
                             Crea un nuevo usuario tipo ADMIN en la plataforma.
@@ -138,7 +140,7 @@ export default function AdminPage() {
                     <CardHeader>
                         <div className="flex flex-col justify-center items-center gap-2 md:flex-row md:items-center md:justify-center">
                             <UserRoundX className="h-6 w-6 text-red-500" />
-                            <CardTitle>Elimina Usuarios de SchoMetrics</CardTitle>
+                            <CardTitle className="text-center">Elimina Usuarios de SchoMetrics</CardTitle>
                         </div>
                         <CardDescription className="pt-3 text-center">
                             Elimina los usuarios de SchoMetrics.
@@ -164,7 +166,7 @@ export default function AdminPage() {
                     <CardHeader>
                         <div className="flex flex-col justify-center items-center gap-2 md:flex-row md:items-center md:justify-center">
                             <MonitorCheck className="h-6 w-6 text-purple-500" />
-                            <CardTitle>Administrar las Actividades</CardTitle>
+                            <CardTitle className="text-center">Administrar las Actividades</CardTitle>
                         </div>
                         <CardDescription className="pt-3 text-center">
                             Revisa, Califica, Edita o Elimina las Actividades de los usuarios.
@@ -190,7 +192,7 @@ export default function AdminPage() {
                     <CardHeader>
                         <div className="flex flex-col justify-center items-center gap-2 md:flex-row md:items-center md:justify-center">
                             <Megaphone className="h-6 w-6 text-lime-400" />
-                            <CardTitle>Crear o Editar Avisos</CardTitle>
+                            <CardTitle className="text-center">Crear o Editar Avisos</CardTitle>
                         </div>
                         <CardDescription className="pt-3 text-center">
                             Crea o Edita los Avisos de SchoMetrics (Generales, Educativos, Ambientales, etc).
@@ -216,7 +218,7 @@ export default function AdminPage() {
                     <CardHeader>
                         <div className="flex flex-col justify-center items-center gap-2 md:flex-row md:items-center md:justify-center">
                             <Building className="h-6 w-6 text-cyan-300" />
-                            <CardTitle>Gestionar Centros de Acopio</CardTitle>
+                            <CardTitle className="text-center">Gestionar Centros de Acopio</CardTitle>
                         </div>
                         <CardDescription className="pt-3 text-center">
                             Añade y administra los centros de reciclaje y acopio en la plataforma.
@@ -242,7 +244,7 @@ export default function AdminPage() {
                     <CardHeader>
                         <div className="flex flex-col justify-center items-center gap-2 md:flex-row md:items-center md:justify-center">
                             <Gift className="h-6 w-6 text-amber-500" />
-                            <CardTitle>Crea o Edita  Recompensas</CardTitle>
+                            <CardTitle className="text-center">Crea o Edita  Recompensas</CardTitle>
                         </div>
                         <CardDescription className="pt-3 text-center">
                             Añade nuevas recompensas o edita las existentes.
@@ -268,7 +270,7 @@ export default function AdminPage() {
                     <CardHeader>
                         <div className="flex flex-col justify-center items-center gap-2 md:flex-row md:items-center md:justify-center">
                             <Image src="logo.png" alt="SchoMetrics" width={30} height={30} objectFit="contain"></Image>
-                            <CardTitle>Navega a SchoMetrics</CardTitle>
+                            <CardTitle className="text-center">Navega a SchoMetrics</CardTitle>
                         </div>
                         <CardDescription className="pt-3 text-center">
                             Verifica la correcta funcionalidad de los recursos que hayas creado o modificado en la plataforma de SchoMetrics.

@@ -271,7 +271,7 @@ export default function RewardsPage() {
       <div className="flex flex-col gap-8 m-5">
         {/* Header mejorado */}
         <div className="mt-16 lg:mt-0 p-8 flex flex-col gap-3 text-white bg-gradient-to-br from-amber-500 via-orange-500 to-red-500 rounded-xl shadow-2xl">
-          <h1 className="text-4xl font-bold tracking-tight flex flex-col md:flex-row items-center gap-3">
+          <h1 className="text-3xl font-bold tracking-tight flex flex-col md:flex-row items-center gap-3">
             <Gift className="h-10 w-10 animate-bounce" />
             Recompensas
           </h1>

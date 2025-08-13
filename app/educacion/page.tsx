@@ -63,7 +63,7 @@ export default function EducationPage() {
         <DashboardLayout>
             <div className="flex flex-col gap-8 m-5 sm:m-10">
                 <div className="mt-16 lg:mt-0 p-8 flex flex-col gap-3 text-white bg-gradient-to-br from-blue-900 to-gray-800 rounded-xl shadow-2xl">
-                    <h1 className="text-4xl font-bold tracking-tight flex flex-col md:flex-row items-center gap-3">
+                    <h1 className="text-4xl text-center font-bold tracking-tight flex flex-col md:flex-row items-center gap-3">
                         <GraduationCap className="h-10 w-10 animate-bounce" />
                         Educación Ambiental
                     </h1>

@@ -10,7 +10,7 @@ export default function AvisosSchoMetrics() {
         <DashboardLayout>
             <div className='container flex flex-col mt-5'>
                 <div className="mt-16 lg:mt-0 p-8 flex flex-col gap-3 text-white bg-gradient-to-br from-blue-700 to-blue-500 rounded-xl shadow-2xl">
-                    <h1 className="text-4xl font-bold tracking-tight flex flex-col md:flex-row items-center gap-3">
+                    <h1 className="text-3xl text-center font-bold tracking-tight flex flex-col md:flex-row items-center gap-3">
                         <Megaphone className="h-10 w-10 animate-bounce" />
                         Avisos y Notificaciones
                     </h1>

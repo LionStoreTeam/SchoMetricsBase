@@ -393,9 +393,9 @@ export default function ProfilePage() {
                                     <p className="mt-4 px-5 text-center text-xs text-muted-foreground lg:px-10">Para cambiar la foto de Perfil da clic en "Editar Información" y luego en "Guardar".</p>
                                 )}
                                 <CardTitle className="mt-4 text-xl uppercase">{profile.name}</CardTitle>
-                                <CardDescription>{profile.profile?.email}</CardDescription>
+                                <div className="w-full overflow-auto text-muted-foreground">{profile.profile?.email}</div>
                                 <CardDescription>
-                                    Matricula: <span className="text-[#2e86c1] font-semibold">{profile.matricula}</span>
+                                    Matricula: <span className="text-teal-600 font-semibold">{profile.matricula}</span>
                                 </CardDescription>
                             </div>
                         </CardHeader>

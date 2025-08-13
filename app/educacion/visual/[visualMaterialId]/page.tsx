@@ -212,7 +212,7 @@ export default function VisualMaterialDetailPage() {
         <DashboardLayout>
             <FloatingNavEducation />
             <div className="flex flex-col gap-8 m-5">
-                <div className="mb-6 mt-10 md:mt-2">
+                <div className="mb-6 mt-16 md:mt-2">
                     <Link href="/educacion/visual/" className="text-sm text-purple-600 hover:underline flex items-center">
                         <ArrowLeft className="h-4 w-4 mr-1" /> Volver a Material Visual
                     </Link>

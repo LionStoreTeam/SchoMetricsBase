@@ -47,7 +47,7 @@ export const ZoomableImage = ({ src, alt }: { src: string; alt: string }) => {
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
             onMouseLeave={handleMouseUp}
-            className="relative max-w-full max-h-full overflow-hidden cursor-grab active:cursor-grabbing"
+            className="relative max-w-full max-h-ful overflow-hidden cursor-grab active:cursor-grabbing"
         >
             <img
                 ref={imgRef}

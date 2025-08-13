@@ -227,7 +227,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                                 )}
                                 {
                                     currentSession.session?.userType === "ADMIN" && (
-                                        <div className="mt-2 mr-3 p-2 transition-all ease-linear duration-300 rounded-md border-none">
+                                        <div className="mt-2 mr-3 ml-2 p-2 transition-all ease-linear duration-300 rounded-md border-none">
                                             <Link href="/admin">
                                                 <Button size="icon" className="w-full px-3 justify-start text-white bg-rose-500 hover:bg-red-600 transition-all ease-in-out duration-300 hover:-translate-x-1">
                                                     <UserCog className="h-5 w-5" />

@@ -202,7 +202,7 @@ export function EditAnnouncementForm({ announcement }: { announcement: Announcem
     const announcementTopicsArray = Object.values(AnnouncementTopic);
 
     return (
-        <div className="container mx-auto px-4 py-8 mt-16 lg:mt-0">
+        <div className="container mx-auto px-4 py-8 mt-2 lg:mt-0">
             <div className="mb-6">
                 <Link href="/admin/avisos" className="text-sm text-lime-600 hover:underline flex items-center">
                     <ArrowLeft className="h-4 w-4 mr-1" /> Volver a todos los avisos

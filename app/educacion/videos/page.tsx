@@ -221,7 +221,7 @@ export default function ShortVideosListPage() {
             <FloatingNavEducation />
             <div className="flex flex-col gap-8 m-5 sm:m-10">
                 <div className="mt-16 lg:mt-0 p-8 flex flex-col gap-3 text-white bg-gradient-to-br from-blue-500 to-cyan-600 rounded-xl shadow-2xl">
-                    <h1 className="text-4xl font-bold tracking-tight flex flex-col md:flex-row items-center gap-3">
+                    <h1 className="text-4xl text-center font-bold tracking-tight flex flex-col md:flex-row items-center gap-3">
                         <Video className="h-10 w-10 animate-bounce" />
                         Videos Cortos Educativos
                     </h1>

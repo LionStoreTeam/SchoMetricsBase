@@ -60,7 +60,7 @@ const BadgeCard: React.FC<BadgeCardProps> = ({ badge }) => {
             className={cn(
                 "flex flex-col items-center text-center h-full overflow-hidden transition-all duration-300 ease-in-out",
                 badge.obtained
-                    ? "bg-white" // Fondo oscuro para el contenido dentro del gradiente
+                    ? "bg-white rounded-3xl" // Fondo oscuro para el contenido dentro del gradiente
                     : "bg-white border-2 border-teal-100 rounded-xl shadow-lg",
                 "group" // Para efectos hover en elementos hijos
             )}

@@ -3,7 +3,7 @@
 import type React from "react"
 import { useState, useMemo } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { ChevronLeft, ChevronRight, CalendarIcon, Clock, CheckCircle } from "lucide-react"
+import { ChevronLeft, ChevronRight, CalendarIcon, Clock, CheckCircle, Film } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -305,8 +305,8 @@ export const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({ activi
                                                                 objectFit="cover"
                                                             />
                                                         ) : (
-                                                            <div className="w-full h-full flex items-center justify-center bg-gray-200">
-                                                                <span className="text-xs text-gray-500">N/A</span>
+                                                            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-100 to-cyan-100">
+                                                                <Film className="h-16 w-16 text-blue-400 opacity-70" />
                                                             </div>
                                                         )}
                                                     </div>

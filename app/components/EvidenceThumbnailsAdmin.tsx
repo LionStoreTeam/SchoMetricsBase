@@ -104,11 +104,11 @@ export const EvidenceThumbnailsAdmin = ({ evidence }: { evidence: ActivityForAdm
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed top-0 left-0 w-full h-full bg-black/80 z-[100] flex items-center justify-center cursor-pointer p-4"
+                        className="fixed top-0 left-0 w-full min-h-screen bg-black/80 z-[5000] flex items-center justify-center cursor-pointer p-4"
                         onClick={handleCloseModal}
                     >
                         <motion.div
-                            className="relative max-w-full max-h-full flex justify-center items-center"
+                            className="relative max-w-full min-h-screen flex justify-center items-center p-10"
                             initial={{ scale: 0.8 }}
                             animate={{ scale: 1 }}
                             exit={{ scale: 0.8 }}

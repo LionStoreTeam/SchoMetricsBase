@@ -30,7 +30,7 @@ export function FloatingNavEducation() {
         },
     ];
     return (
-        <div className="relative  w-full z-[5000]">
+        <div className="relative  w-full z-[4999]">
             <FloatingNav navItems={navItems} />
         </div>
     );

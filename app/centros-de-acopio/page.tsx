@@ -325,7 +325,7 @@ export default function CentrosDeAcopio() {
         <DashboardLayout>
             <div className="flex flex-col gap-6 m-4 sm:m-8">
                 <div className="mt-16 lg:mt-0 p-8 flex flex-col gap-3 text-white bg-gradient-to-br from-teal-500 to-cyan-600 rounded-xl shadow-2xl">
-                    <h1 className="text-4xl font-bold tracking-tight flex flex-col md:flex-row items-center gap-3">
+                    <h1 className="text-4xl text-center font-bold tracking-tight flex flex-col md:flex-row items-center gap-3">
                         <MapPin className="h-10 w-10 animate-bounce" />
                         Mapa de Centros de Acopio
                     </h1>

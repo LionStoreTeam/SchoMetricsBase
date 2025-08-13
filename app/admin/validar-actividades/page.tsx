@@ -551,7 +551,7 @@ export default function AdminActivitiesManagementPage() {
                                 <Label htmlFor="edit-date">Fecha</Label>
                                 <Popover>
                                     <PopoverTrigger asChild>
-                                        <Button variant={"outline"} className={cn("w-full justify-start text-left font-normal", !editFormData.date && "text-muted-foreground")} disabled={isSubmitting}>
+                                        <Button variant={"outline"} className={cn("w-full justify-start text-left font-normal overflow-auto", !editFormData.date && "text-muted-foreground")} disabled={isSubmitting}>
                                             <CalendarIconLucide className="mr-2 h-4 w-4" />
                                             {editFormData.date ? format(editFormData.date, "PPP", { locale: es }) : <span>Selecciona fecha</span>}
                                         </Button>
@@ -560,7 +560,12 @@ export default function AdminActivitiesManagementPage() {
                                 </Popover>
                             </div>
                         </div>
-                        <DialogFooter><DialogClose asChild><Button type="button" variant="outline" disabled={isSubmitting}>Cancelar</Button></DialogClose><Button type="submit" disabled={isSubmitting} className="bg-indigo-600 hover:bg-indigo-700">{isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}Guardar Cambios</Button></DialogFooter>
+                        <DialogFooter className="flex-col justify-center items-center gap-2">
+                            <DialogClose asChild>
+                                <Button type="button" variant="outline" disabled={isSubmitting}>Cancelar</Button>
+                            </DialogClose>
+                            <Button type="submit" disabled={isSubmitting} className="bg-indigo-600 hover:bg-indigo-700">{isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}Guardar Cambios</Button>
+                        </DialogFooter>
                     </form>
                 </DialogContent>
             </Dialog>
@@ -600,9 +605,9 @@ export default function AdminActivitiesManagementPage() {
                             <Label htmlFor="notify-message">Mensaje</Label>
                             <Textarea id="notify-message" value={notificationMessage} onChange={(e) => setNotificationMessage(e.target.value)} placeholder="Escribe tu mensaje aquí..." rows={4} disabled={isSubmitting} />
                         </div>
-                        <DialogFooter>
+                        <DialogFooter className="flex-col justify-center items-center gap-2">
                             <DialogClose asChild><Button type="button" variant="outline" disabled={isSubmitting}>Cancelar</Button></DialogClose>
-                            <Button type="submit" disabled={isSubmitting} className="bg-orange-500 hover:bg-orange-600">
+                            <Button type="submit" disabled={isSubmitting} className="bg-green-500 hover:bg-green-600">
                                 {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}Enviar Mensaje
                             </Button>
                         </DialogFooter>

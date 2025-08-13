@@ -173,8 +173,8 @@ const ActivityCard = ({ activity }: { activity: ExtendedActivity }) => (
                     <h3 className="text-lg font-semibold text-gray-900">{activity.title}</h3>
                 </div>
                 {activity.status === "REVIEWED" && activity.points > 0 && (
-                    <div className="p-1 flex justify-center items-center gap-2 text-green-600 font-medium border-y-2 border-y-[#53c932]">
-                        <Image src="/eco_points_logo.png" alt="eco_points_logo" width={30} height={30} priority />
+                    <div className="p-1 flex justify-center items-center gap-2 text-[#17d627] font-bold border-y-2 border-y-[#53c932]">
+                        <Image src="/eco_points_logo.png" alt="eco_points_logo" width={40} height={35} priority />
                         <span>+{activity.points}</span>
                     </div>
                 )}
@@ -271,7 +271,7 @@ export default function ActivitiesPage() {
                     </span>
                 </StickyBanner>
                 <div className="mt-16 lg:mt-0 p-8 flex flex-col gap-3 text-white bg-gradient-to-br from-green-500 via-emerald-600 to-green-600 rounded-xl shadow-2xl">
-                    <h1 className="text-4xl font-bold tracking-tight flex flex-col md:flex-row items-center gap-3">
+                    <h1 className="text-4xl text-center font-bold tracking-tight flex flex-col md:flex-row items-center gap-3">
                         <Leaf className="h-10 w-10 animate-bounce" />
                         Mis Actividades
                     </h1>
