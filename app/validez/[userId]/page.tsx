@@ -14,7 +14,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
-import ListaDeRecompensas from "../../components/ListaDeRecompensas";
+// import ListaDeRecompensas from "../../components/ListaDeRecompensas";
 import SchoMetricsLoader from "@/app/components/SchoMetricsLoader";
 
 const ValidezPage = () => {
@@ -30,7 +30,7 @@ const ValidezPage = () => {
         setIsLoading(true);
         setError(null);
         try {
-            const response = await fetch(`/api/admin/users/profiles/${userId}`);
+            const response = await fetch(`/api/validate-user/${userId}`);
             if (!response.ok) {
                 const errorData = await response.json();
                 throw new Error(errorData.error || "Usuario no encontrado o error al cargar.");
@@ -213,7 +213,7 @@ const ValidezPage = () => {
                         </div>
 
                         <Separator className="my-6" />
-                        <ListaDeRecompensas userId={user?.id as string} />
+                        {/* <ListaDeRecompensas userId={user?.id as string} /> */}
 
 
                         <Separator className="my-6" />

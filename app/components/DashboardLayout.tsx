@@ -255,7 +255,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                             </div>
                         </SheetContent>
                     </Sheet>
-                    <Link href="/perfil#notifications_tab" passHref> {/* Enlace a la pestaña de notificaciones del perfil */}
+                    <Link href="/avisos" passHref> {/* Enlace a la pestaña de notificaciones del perfil */}
                         <Button variant="ghost" size="icon" className="relative text-gray-600">
                             <Bell className="h-5 w-5" />
                             {unreadNotifications > 0 && (
@@ -273,6 +273,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                     <Image src="/logo.png" alt="logo" width={50} height={50} priority objectFit="contain" />
                 </Link>
             </header>
+
             {/* Seccion para Escritorio */}
 
             <div className="flex flex-1">
