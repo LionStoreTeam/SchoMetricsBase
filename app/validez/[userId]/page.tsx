@@ -15,7 +15,7 @@ import Link from "next/link"
 import { useParams, useSearchParams } from "next/navigation"
 import { useCallback, useEffect, useState } from "react"
 import ListaDeRecompensas from "../components/ListaDeRecompensas"
-import EnlaceExpirado from "../components/EnlaceExpirado"
+import EnlaceExpirado from '../components/EnlaceExpirado';
 
 const ValidezPage = () => {
     const params = useParams()

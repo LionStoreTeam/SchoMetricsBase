@@ -28,6 +28,8 @@ export async function POST(request: Request) {
     },
   });
 
-  const url = `${process.env.NEXTAUTH_URL}/validez/${userId}?token=${token}`;
+  const baseUrl = process.env.BASE_URL ?? "http://localhost:3000";
+
+  const url = `${baseUrl}/validez/${userId}?token=${token}`;
   return NextResponse.json({ url });
 }

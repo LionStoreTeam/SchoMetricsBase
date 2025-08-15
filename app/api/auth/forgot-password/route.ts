@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
     });
 
     // Enviar email
-    const resetUrl = `${process.env.NEXTAUTH_URL}/login/reset-password?token=${token}`;
+    const resetUrl = `${process.env.BASE_URL}/login/reset-password?token=${token}`;
 
     await resend.emails.send({
       from: "SchoMetrics <noreply@schometrics.website>", // put here the same domain existing in Resend
