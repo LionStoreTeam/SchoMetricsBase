@@ -19,6 +19,16 @@ interface jsPDFWithPlugin extends jsPDF {
 export const ReportDownloadButton = () => {
     const [isGenerating, setIsGenerating] = useState(false)
 
+    async function fetchValidationLink(userId: string) {
+        const res = await fetch('/api/validate-user/generate-validation-link', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ userId }),
+        })
+        const { url } = await res.json()
+        return url
+    }
+
     const generatePDFReport = async (data: UserReportData) => {
         const doc = new jsPDF() as jsPDFWithPlugin
         let y = 20
@@ -181,7 +191,8 @@ export const ReportDownloadButton = () => {
 
         // Generar código QR para validez
         try {
-            const validationUrl = `${window.location.origin}/validez/${data.user.id}`
+            // const validationUrl = `${window.location.origin}/validez/${data.user.id}`
+            const validationUrl = await fetchValidationLink(data.user.id)
             const qrCodeDataUrl = await QRCode.toDataURL(validationUrl, {
                 width: 100,
                 margin: 1,

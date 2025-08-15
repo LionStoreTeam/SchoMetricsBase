@@ -1,141 +1,78 @@
 "use client"
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
-import { getInitials } from "@/hooks/getInitials"
-import type { UserProfileData } from "@/types/types"
-import { format } from "date-fns"
-import { es } from "date-fns/locale"
-import { ArrowRightLeftIcon, CalendarCheckIcon, CheckCircle, Shield, User, AlertCircle } from "lucide-react"
-import Image from "next/image"
-import Link from "next/link"
-import { useParams, useSearchParams } from "next/navigation"
-import { useCallback, useEffect, useState } from "react"
-import ListaDeRecompensas from "../components/ListaDeRecompensas"
-import EnlaceExpirado from "../components/EnlaceExpirado"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { getInitials } from "@/hooks/getInitials";
+import { UserProfileData } from "@/types/types";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
+import { ArrowRightLeftIcon, Award, Calendar, CalendarCheckIcon, CheckCircle, Gift, Medal, Shield, ShoppingBag, Tag, Ticket, User } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
+import SchoMetricsLoader from "@/app/components/SchoMetricsLoader";
+import ListaDeRecompensas from "../components/ListaDeRecompensas";
 
-const ValidezPage = () => {
-    const params = useParams()
-    const userId = params.userId as string
-    const searchParams = useSearchParams()
-    const token = searchParams.get("token")
+export default function ValidezPage({ userId, token }: { userId: any, token: string }) {
+    const [user, setUser] = useState<UserProfileData | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
-    const [user, setUser] = useState<UserProfileData | null>(null)
-    const [isLoading, setIsLoading] = useState(true)
-    const [error, setError] = useState<string | null>(null)
-    const [isValidToken, setIsValidToken] = useState<boolean | null>(null)
-
-    useEffect(() => {
-        if (token && userId) {
-            validateToken()
-        } else {
-            setIsValidToken(false)
-        }
-    }, [token, userId])
-
-    const validateToken = async () => {
-        try {
-            const response = await fetch("/api/validate-user/validate-token", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ token, userId }),
-            })
-
-            if (response.ok) {
-                const data = await response.json()
-                setIsValidToken(data.valid === true)
-            } else {
-                setIsValidToken(false)
-            }
-        } catch (error) {
-            console.error("Error validando token:", error)
-            setIsValidToken(false)
-        }
-    }
 
     const fetchUser = useCallback(async () => {
-        if (!userId) return
-        setIsLoading(true)
-        setError(null)
+        if (!userId) return;
+        setIsLoading(true);
+        setError(null);
         try {
-            const response = await fetch(`/api/validate-user/${userId}`)
+            const response = await fetch(`/api/validate-user/${userId}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
             if (!response.ok) {
-                const errorData = await response.json()
-                throw new Error(errorData.error || "Usuario no encontrado o error al cargar.")
+                const errorData = await response.json();
+                throw new Error(errorData.error || "Usuario no encontrado o error al cargar.");
             }
-            const data: UserProfileData = await response.json()
-            setUser(data)
+            const data: UserProfileData = await response.json();
+            setUser(data);
+            // console.log("Usuario cargado:", data);
         } catch (err) {
-            console.error("Error cargando usuario:", err)
-            setError(err instanceof Error ? err.message : "Ocurrió un error desconocido.")
+            console.error("Error cargando usuario:", err);
+            setError(err instanceof Error ? err.message : "Ocurrió un error desconocido.");
         } finally {
-            setIsLoading(false)
+            setIsLoading(false);
         }
-    }, [userId])
+    }, [userId]);
 
     useEffect(() => {
-        if (isValidToken === true) {
-            fetchUser()
-        }
-    }, [isValidToken, fetchUser])
+        fetchUser();
+    }, [fetchUser]);
+
 
     const formatDate = (dateString: string | undefined, includeTime = true) => {
-        if (!dateString) return "Fecha no disponible"
-        const date = new Date(dateString)
+        if (!dateString) return "Fecha no disponible";
+        const date = new Date(dateString);
         if (includeTime) {
-            return format(date, "dd MMM, yyyy 'a las' HH:mm", { locale: es })
+            return format(date, "dd MMM, yyyy 'a las' HH:mm", { locale: es });
         }
-        return format(date, "dd MMM, yyyy", { locale: es })
-    }
+        return format(date, "dd MMM, yyyy", { locale: es });
+    };
 
     const USER_TYPE_MAP: { [key: string]: string } = {
         STUDENT: "Estudiante",
         TEACHER: "Docente",
         ADMIN: "Administrador",
-    }
+    };
 
-    if (isValidToken === null || (isValidToken === true && isLoading)) {
+    if (isLoading) {
         return (
-            <Card className="w-full max-w-md mx-auto">
-                <CardContent className="pt-6">
-                    <div className="text-center">
-                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-                        <p className="mt-4 text-gray-600">
-                            {isValidToken === null ? "Validando enlace..." : "Cargando datos del usuario..."}
-                        </p>
-                    </div>
-                </CardContent>
-            </Card>
-        )
-    }
-
-    if (isValidToken === false) {
-        return (
-            <EnlaceExpirado />
-        )
-    }
-
-    if (error) {
-        return (
-            <Card className="w-full max-w-md mx-auto">
-                <CardHeader className="text-center">
-                    <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
-                        <AlertCircle className="h-6 w-6 text-red-600" />
-                    </div>
-                    <CardTitle className="text-2xl font-bold text-red-800">Error</CardTitle>
-                    <CardDescription>{error}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <Link href="/estadisticas" className="w-full">
-                        <Button className="w-full">Volver</Button>
-                    </Link>
-                </CardContent>
-            </Card>
+            <SchoMetricsLoader />
         )
     }
 
@@ -175,7 +112,7 @@ const ValidezPage = () => {
                             <div className="mt-5 p-1 rounded-full bg-white">
                                 <Avatar className="w-[80px] h-[80px]">
                                     <AvatarImage src={user?.profile?.publicAvatarDisplayUrl || ""} alt={user?.name || "Avatar"} />
-                                    <AvatarFallback className="bg-teal-100 text-teal-600 font-semibold text-[25px]">
+                                    <AvatarFallback className="bg-teal-100 text-teal-600 font-semibold text-[25px]" >
                                         {getInitials(user?.name)}
                                     </AvatarFallback>
                                 </Avatar>
@@ -205,24 +142,18 @@ const ValidezPage = () => {
                                     </div>
 
                                     <div>
-                                        <label className="text-sm font-medium text-gray-500">Tipo de Cuenta: </label>
+                                        <label className="text-sm font-medium text-gray-500">Tipo de Cuenta: {" "}</label>
                                         <Badge
                                             variant={
-                                                user?.userType === "STUDENT"
-                                                    ? "secondary"
-                                                    : user?.userType === "TEACHER"
-                                                        ? "outline"
-                                                        : user?.userType === "ADMIN"
-                                                            ? "outline"
+                                                user?.userType === "STUDENT" ? "secondary" :
+                                                    user?.userType === "TEACHER" ? "outline" :
+                                                        user?.userType === "ADMIN" ? "outline"  // Example: use outline for community
                                                             : "default"
                                             }
                                             className={
-                                                user?.userType === "STUDENT"
-                                                    ? "bg-sky-100 text-sky-700 border-sky-300"
-                                                    : user?.userType === "TEACHER"
-                                                        ? "bg-green-100 text-green-700 border-green-300"
-                                                        : user?.userType === "ADMIN"
-                                                            ? "bg-red-950 text-white"
+                                                user?.userType === "STUDENT" ? "bg-sky-100 text-sky-700 border-sky-300" :
+                                                    user?.userType === "TEACHER" ? "bg-green-100 text-green-700 border-green-300" :
+                                                        user?.userType === "ADMIN" ? "bg-red-950 text-white"
                                                             : "bg-gray-100 text-gray-700 border-gray-300"
                                             }
                                         >
@@ -251,11 +182,11 @@ const ValidezPage = () => {
                                         </div>
                                     </div>
                                     {/* Datos del Usuario */}
-                                    <div className="w-full flex flex-col justify-center items-start gap-4">
+                                    <div className='w-full flex flex-col justify-center items-start gap-4'>
                                         {user?.profile?.badges && user.profile.badges.length > 0 ? (
                                             <div className="flex flex-col flex-wrap gap-2">
                                                 <div className="flex items-center text-center gap-2 md:flex-row text-slate-500">
-                                                    Insignias:{" "}
+                                                    Insignias: {" "}
                                                 </div>
                                                 <div className="h-[100px] overflow-auto flex flex-col gap-3">
                                                     {user.profile.badges.map((badge) => (
@@ -264,6 +195,7 @@ const ValidezPage = () => {
                                                             variant="outline"
                                                             className="flex items-center gap-4 px-2 py-1 bg-amber-50 text-amber-600 border-none"
                                                         >
+                                                            {/* Asumiendo que badge.imageUrl es una URL completa y pública */}
                                                             <img src={badge.imageUrl || ""} alt={badge.name} className="h-4 w-4" />
                                                             {badge.name}
                                                         </Badge>
@@ -273,10 +205,12 @@ const ValidezPage = () => {
                                         ) : (
                                             <div className="flex flex-col justify-center items-start gap-2 md:flex-row text-slate-500">
                                                 <div className="flex items-center gap-2 md:flex-row text-slate-500">
-                                                    <CheckCircle className="w-6 h-6" />
-                                                    Insignias:{" "}
+                                                    <CheckCircle className='w-6 h-6' />
+                                                    Insignias: {" "}
                                                 </div>
-                                                <p className="text-sky-800 font-bold">Sin Insignias obtenidas.</p>
+                                                <p className='text-sky-800 font-bold'>
+                                                    Sin Insignias obtenidas.
+                                                </p>
                                             </div>
                                         )}
                                     </div>
@@ -287,6 +221,7 @@ const ValidezPage = () => {
                         <Separator className="my-6" />
                         <ListaDeRecompensas userId={user?.id as string} />
 
+
                         <Separator className="my-6" />
 
                         {/* Footer Information */}
@@ -294,7 +229,8 @@ const ValidezPage = () => {
                             <div className="grid md:grid-cols-2 gap-4 text-sm text-gray-600">
                                 <div>
                                     <p>
-                                        <strong>Verificación de la cuenta realizada el:</strong> {formatDate(new Date().toISOString())}
+                                        <strong>Verificación de la cuenta realizada el:</strong> {
+                                            formatDate(new Date().toISOString())}
                                     </p>
                                 </div>
                             </div>
@@ -319,13 +255,9 @@ const ValidezPage = () => {
 
                 {/* Security Notice */}
                 <div className="mt-6 text-center">
-                    <p className="text-sm text-gray-500">
-                        © {new Date().getFullYear()} SchoMetrics. Documento oficial verificado.
-                    </p>
+                    <p className="text-sm text-gray-500">© {new Date().getFullYear()} SchoMetrics. Documento oficial verificado.</p>
                 </div>
             </div>
         </div>
     )
 }
-
-export default ValidezPage

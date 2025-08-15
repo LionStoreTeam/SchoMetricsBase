@@ -4,7 +4,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Leaf, Map, User, LogOut, Menu, LayoutDashboard, BarChart2, Award, Trophy, Bell, Gift, GraduationCap, UserCog, Crown, Megaphone } from "lucide-react"; // Añadido Bell y Gift (si no estaba)
+import { Leaf, Map, User, LogOut, Menu, LayoutDashboard, BarChart2, Award, Trophy, Bell, Gift, GraduationCap, UserCog, Crown, Megaphone, IdCardLanyard } from "lucide-react"; // Añadido Bell y Gift (si no estaba)
 import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 import { UserProfileData, UserStats } from "@/types/types"; // Asumo que UserProfileBadge está en types.ts
@@ -249,6 +249,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                                     <MobileNavItem href="/marcadores" icon={<Trophy className="h-5 w-5" />} label="Marcadores" active={pathname === "/marcadores"} />
                                     <MobileNavItem href="/centros-de-acopio" icon={<Map className="h-5 w-5" />} label="Centros de Acopio" active={pathname === "/centros-de-acopio"} />
                                     <MobileNavItem href="/avisos" icon={<Megaphone className="h-5 w-5" />} label="Avisos" active={pathname === "/avisos"} />
+                                    <MobileNavItem href="/mi-carnet" icon={<IdCardLanyard className="h-5 w-5" />} label="Mi Carnet" active={pathname === "/mi-carnet"} />
                                     <MobileNavItem href="/perfil" icon={<User className="h-5 w-5" />} label="Mi Perfil" active={pathname === "/perfil"} />
                                 </nav>
 
@@ -347,6 +348,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                         <NavItem href="/marcadores" icon={<Trophy className="h-5 w-5" />} label="Marcadores" active={pathname === "/marcadores"} />
                         <NavItem href="/centros-de-acopio" icon={<Map className="h-5 w-5" />} label="Centros de Acopio" active={pathname === "/centros-de-acopio"} />
                         <NavItem href="/avisos" icon={<Megaphone className="h-5 w-5" />} label="Avisos" active={pathname === "/Avisos"} />
+                        <NavItem href="/mi-carnet" icon={<IdCardLanyard className="h-5 w-5" />} label="Mi Carnet" active={pathname === "/mi-carnet"} />
                         <NavItem href="/perfil" icon={<User className="h-5 w-5" />} label="Mi Perfil" active={pathname === "/perfil"} />
                         {/* <NavItem href="/productos-disponibles" icon={<ShoppingBasket className="h-5 w-5" />} label="Productos Disponibles" active={pathname === "/productos-disponibles"} /> */}
                         {/* <NavItem href="/negocios-disponibles" icon={<Store className="h-5 w-5" />} label="Negocios Disponibles" active={pathname === "/negocios-disponibles"} /> */}

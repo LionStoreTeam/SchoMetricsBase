@@ -1,6 +1,9 @@
 import prisma from "@/lib/prisma";
 import { getPublicS3Url } from "@/lib/s3-service";
+import { verify } from "jsonwebtoken";
 import { NextRequest, NextResponse } from "next/server";
+
+const JWT_SECRET = process.env.JWT_SECRET!;
 
 export async function GET(
   request: NextRequest,
@@ -8,6 +11,23 @@ export async function GET(
 ) {
   try {
     const { userId } = params;
+
+    const auth = request.headers.get("authorization") || "";
+    const token = auth.replace("Bearer ", "");
+    if (!token)
+      return NextResponse.json({ error: "No token" }, { status: 401 });
+
+    try {
+      const payload = verify(token, JWT_SECRET) as { userId: string };
+      if (payload.userId !== params.userId) {
+        throw new Error();
+      }
+    } catch {
+      return NextResponse.json(
+        { error: "Token inválido o expirado" },
+        { status: 401 }
+      );
+    }
 
     const findUser = await prisma.user.findUnique({
       where: { id: userId },
